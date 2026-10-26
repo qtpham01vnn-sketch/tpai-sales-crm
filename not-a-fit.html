@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gợi Ý Giải Pháp Phù Hợp — Thầy Tuấn Phạm TPAI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/tpai-icon.svg">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tpai-dark': '#040A1C',
+            'tpai-navy': '#07153B',
+            'tpai-blue': '#0D2B8A',
+            'tpai-cyan': '#00D2FF',
+            'tpai-amber': '#F59E0B'
+          },
+          fontFamily: {
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #040A1C; color: #E2E8F0; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card {
+      background: rgba(7, 21, 59, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+    }
+    .glass-card-amber {
+      background: rgba(24, 18, 10, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-8">
+
+  <!-- Header -->
+  <header class="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-800">
+    <a href="/">
+      <img src="/assets/tpai-logo.png" alt="TPAI Logo" class="h-9 w-auto">
+    </a>
+    <a href="/" class="text-xs font-bold text-tpai-cyan hover:underline flex items-center gap-1">
+      <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Về Trang Chủ
+    </a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-8 max-w-3xl mx-auto w-full text-center">
+    
+    <!-- Top Icon & Message -->
+    <div class="w-16 h-16 bg-amber-500/15 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+      <i data-lucide="sparkles" class="w-8 h-8"></i>
+    </div>
+    <div class="inline-block px-3.5 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-full mb-3 border border-slate-700">
+      LỜI NHẮN TỪ THẦY TUẤN PHẠM
+    </div>
+    
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+      Cảm Ơn Bạn Đã Đăng Ký Ứng Tuyển!
+    </h1>
+    
+    <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed mb-8">
+      Hiện tại, phiên <strong>Tư Vấn Chiến Lược AI 1:1 Trực Tiếp</strong> chỉ mở giới hạn 5 slot/tuần và được thiết kế chuyên biệt cho các doanh nghiệp đã có đội ngũ từ 3 nhân sự trở lên để tối ưu quy trình phòng ban.<br><br>
+      Để giúp bạn không mất thời gian và có thể <strong>bắt đầu làm chủ AI ngay hôm nay</strong>, Thầy Tuấn Phạm gợi ý cho bạn 2 lộ trình phù hợp và hiệu quả nhất dưới đây:
+    </p>
+
+    <!-- 2 Route Cards -->
+    <div class="grid sm:grid-cols-2 gap-5 text-left mb-10">
+      
+      <!-- Card 1: Khóa Học Online Cuối Tuần -->
+      <div class="glass-card-amber rounded-2xl p-6 flex flex-col justify-between hover:border-amber-400 transition shadow-xl">
+        <div>
+          <div class="inline-block px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase mb-2">
+            KHUYÊN DÙNG ĐỂ BẮT ĐẦU
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Khóa Huấn Luyện AI FOR BUSINESS</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Tham gia 2 buổi huấn luyện Zoom VIP cuối tuần (Thứ 7 &amp; CN). Học trực tiếp phương pháp đóng gói trợ lý AI và ứng dụng vào thực tế công việc.
+          </p>
+          <div class="text-xs text-slate-400 space-y-1.5 mb-6">
+            <div class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Gói Cá Nhân: <strong>6.000.000đ</strong></div>
+            <div class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Gói Cặp Đôi Sếp &amp; Trợ Lý: <strong>9.900.000đ</strong></div>
+          </div>
+        </div>
+        <a href="/#dang-ky" class="w-full py-3 px-4 rounded-xl font-bold text-xs text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-center transition flex items-center justify-center gap-2">
+          <span>Xem Lịch Học &amp; Đăng Ký</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Card 2: Nhận Tài Liệu Miễn Phí -->
+      <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-tpai-cyan transition shadow-xl">
+        <div>
+          <div class="inline-block px-2.5 py-0.5 rounded bg-tpai-cyan/20 text-tpai-cyan text-[10px] font-bold uppercase mb-2">
+            MIỄN PHÍ 100%
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Bộ 50 Prompt Master &amp; Cẩm Nang</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Tặng bạn trọn bộ tệp Word (.docx) chuẩn 100% Nghị định 30/2020/NĐ-CP và Ebook PDF 12 Slide để tự ứng dụng ngay cho công việc hàng ngày.
+          </p>
+          <div class="text-xs text-slate-400 space-y-1.5 mb-6">
+            <div class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-tpai-cyan"></i> File Word chuẩn thể thức TCVN</div>
+            <div class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-tpai-cyan"></i> Ebook PDF 12 Slide 16:9 Retina</div>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <a href="/assets/50-prompt-master-nghi-dinh-30.docx" download="50-Prompt-Master-Nghi-Dinh-30-TPAI.docx" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 text-center transition flex items-center justify-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-tpai-cyan"></i>
+            <span>Tải File Word (.docx)</span>
+          </a>
+          <a href="/assets/cam-nang-50-prompt-tpai.pdf" download="Cam-Nang-50-Prompt-TPAI.pdf" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-tpai-cyan bg-tpai-cyan/10 hover:bg-tpai-cyan/20 border border-tpai-cyan/30 text-center transition flex items-center justify-center gap-1.5">
+            <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+            <span>Tải Ebook PDF (12 Slide)</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Zalo Support -->
+    <div class="glass-card rounded-xl p-4 max-w-md mx-auto text-xs text-slate-400 flex items-center justify-center gap-2 mb-6">
+      <i data-lucide="help-circle" class="w-4 h-4 text-tpai-cyan shrink-0"></i>
+      <span>Cần tư vấn thêm về lộ trình học? <a href="https://zalo.me/0977138673" target="_blank" class="text-tpai-cyan font-bold hover:underline">Nhắn Zalo Thầy Tuấn: 0977.138.673</a></span>
+    </div>
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-600 pt-6 border-t border-slate-800">
+    © 2026 TPAI — Tuấn Phạm AI. Hotline/Zalo: 0977.138.673
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

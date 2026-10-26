@@ -1,0 +1,104 @@
+{
+  "version": 2,
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/orchestrator/cron",
+      "schedule": "30 23 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/dat-lich",
+      "destination": "/dat-lich.html"
+    },
+    {
+      "source": "/booking",
+      "destination": "/dat-lich.html"
+    },
+    {
+      "source": "/survey",
+      "destination": "/survey.html"
+    },
+    {
+      "source": "/ung-tuyen",
+      "destination": "/survey.html"
+    },
+    {
+      "source": "/thank-you",
+      "destination": "/thank-you.html"
+    },
+    {
+      "source": "/not-a-fit",
+      "destination": "/not-a-fit.html"
+    },
+    {
+      "source": "/api/booking",
+      "destination": "/api/booking.js"
+    },
+    {
+      "source": "/cam-on",
+      "destination": "/cam-on.html"
+    },
+    {
+      "source": "/crm",
+      "destination": "/crm.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/crm.html"
+    },
+    {
+      "source": "/api/sepay-webhook",
+      "destination": "/api/sepay-webhook.js"
+    },
+    {
+      "source": "/api/send-email",
+      "destination": "/api/send-email.js"
+    },
+    {
+      "source": "/api/webhook/lead",
+      "destination": "/api/webhook/lead.js"
+    },
+    {
+      "source": "/api/webhook/provision",
+      "destination": "/api/webhook/provision.js"
+    },
+    {
+      "source": "/api/orchestrator/command",
+      "destination": "/api/orchestrator/command.js"
+    },
+    {
+      "source": "/api/orchestrator/cron",
+      "destination": "/api/orchestrator/cron.js"
+    },
+    {
+      "source": "/api/webhook",
+      "destination": "/api/sepay-webhook.js"
+    },
+    {
+      "source": "/webhook",
+      "destination": "/api/sepay-webhook.js"
+    },
+    {
+      "source": "/sepay",
+      "destination": "/api/sepay-webhook.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ]
+}

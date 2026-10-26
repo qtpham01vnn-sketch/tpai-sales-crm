@@ -1,0 +1,41 @@
+{
+  "name": "TPAI — Trợ Lý AI Doanh Nghiệp",
+  "short_name": "TPAI",
+  "description": "Hệ thống Phễu Bán Hàng & Mini CRM Trợ Lý AI Doanh Nghiệp — Tuấn Phạm AI",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#040A1C",
+  "theme_color": "#07153B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/tpai-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mini CRM Pro",
+      "short_name": "CRM",
+      "description": "Mở trang quản trị Mini CRM TPAI",
+      "url": "/crm",
+      "icons": [{ "src": "/assets/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Khóa Học AI For Business",
+      "short_name": "Khóa Học",
+      "description": "Mở trang đăng ký khóa học",
+      "url": "/#dang-ky",
+      "icons": [{ "src": "/assets/favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

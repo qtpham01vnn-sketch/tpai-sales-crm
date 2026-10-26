@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI FOR BUSINESS — Xây Dựng Hệ Thống Trợ Lý AI Doanh Nghiệp | TPAI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <!-- PWA Manifest & iOS Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#07153B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TPAI">
+  <link rel="apple-touch-icon" href="/assets/tpai-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tpai: {
+              navy: '#07153B',
+              dark: '#040A1C',
+              blue: '#0D2B8A',
+              cyan: '#00D2FF',
+              amber: '#F59E0B',
+              surface: 'rgba(7, 21, 59, 0.7)',
+              border: 'rgba(0, 210, 255, 0.2)'
+            }
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #040A1C;
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 35px rgba(0, 210, 255, 0.25);
+    }
+    .glow-amber {
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);
+    }
+    .glass-card {
+      background: rgba(7, 21, 59, 0.65);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 210, 255, 0.18);
+    }
+    .glass-card-amber {
+      background: rgba(24, 18, 10, 0.7);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #FFFFFF 0%, #00D2FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-amber {
+      background: linear-gradient(135deg, #FFFBEB 0%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-grid-pattern min-h-screen">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-tpai-blue via-tpai-navy to-tpai-blue text-white py-2.5 px-4 text-center border-b border-tpai-border text-xs md:text-sm font-medium sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse">
+        🔴 KHAI GIẢNG K01
+      </span>
+      <span>Thứ Bảy (31/10) &amp; Chủ Nhật (01/11/2026) &bull; Trực Tuyến Qua <b>Zoom VIP Quốc Tế</b> (Mentor Kèm 1-1 Riêng)!</span>
+      <a href="#dang-ky" class="underline font-bold text-tpai-cyan hover:text-white transition inline-flex items-center ml-1">
+        <span>Giữ Chỗ Ngay &rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="border-b border-white/10 backdrop-blur-md bg-tpai-dark/80 sticky top-9 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center space-x-3">
+        <img src="/assets/tpai-logo.png" alt="TPAI Logo" class="h-10 w-auto object-contain">
+      </a>
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-300">
+        <a href="#noi-dau" class="hover:text-tpai-cyan transition">3 Nỗi Đau</a>
+        <a href="#giang-vien" class="hover:text-tpai-cyan transition">Giảng Viên</a>
+        <a href="#chuong-trinh" class="hover:text-tpai-cyan transition">7 Modules</a>
+        <a href="#bang-gia" class="hover:text-tpai-cyan transition">Bảng Giá</a>
+        <a href="#danh-gia" class="hover:text-tpai-cyan transition">Đánh Giá</a>
+        <a href="#faq" class="hover:text-tpai-cyan transition">Hỏi Đáp</a>
+        <a href="#tai-tai-lieu" class="text-amber-400 hover:text-amber-300 font-bold transition flex items-center">
+          <i data-lucide="gift" class="w-4 h-4 mr-1"></i> Tặng 50 Prompt
+        </a>
+        <a href="/dat-lich" class="text-tpai-cyan hover:text-white font-bold transition flex items-center">
+          <i data-lucide="calendar" class="w-4 h-4 mr-1"></i> Tư Vấn 1:1
+        </a>
+      </nav>
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <a href="/dat-lich" class="hidden md:inline-flex items-center space-x-1.5 text-xs text-tpai-cyan border border-tpai-cyan/40 hover:bg-tpai-cyan/10 px-3 py-1.5 rounded-lg transition font-semibold">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <span>Đặt Lịch 1:1</span>
+        </a>
+        <button onclick="openLeadMagnetModal()" class="hidden sm:inline-flex items-center space-x-1.5 text-xs text-amber-400 border border-amber-500/40 hover:bg-amber-500/10 px-3 py-1.5 rounded-lg transition font-semibold">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Nhận 50 Prompt</span>
+        </button>
+        <a href="/crm" target="_blank" class="text-xs text-slate-300 hover:text-tpai-cyan flex items-center space-x-1.5 border border-slate-700 px-3 py-1.5 rounded-lg transition bg-slate-900/60">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-tpai-cyan"></i>
+          <span>CRM</span>
+        </a>
+        <a href="#dang-ky" class="inline-flex items-center space-x-2 bg-gradient-to-r from-tpai-cyan to-tpai-blue text-slate-950 font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-lg hover:brightness-110 transition text-xs sm:text-sm">
+          <span>Mua Vé</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tpai-cyan/10 border border-tpai-cyan/30 text-tpai-cyan text-xs font-semibold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-tpai-cyan animate-ping"></span>
+            <span>Khóa Huấn Luyện Thực Chiến Doanh Nghiệp 2026</span>
+          </div>
+
+          <div class="space-y-3">
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-snug tracking-tight">
+              <span class="block">Sếp Đi Học Một Mình Về <span class="inline-block px-2.5 py-0.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 text-lg sm:text-3xl lg:text-4xl font-bold align-middle">Không Ai Làm</span></span>
+              <span class="block mt-1 sm:mt-2">Nhân Viên Học Về <span class="inline-block px-2.5 py-0.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 text-lg sm:text-3xl lg:text-4xl font-bold align-middle">Sếp Không Duyệt?</span></span>
+              <span class="block mt-2 sm:mt-3 text-gradient-cyan">Đột Phá Cùng Cặp Đôi Chiến Lược!</span>
+            </h1>
+
+            <!-- Social Proof Bar under Hero Headline -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs text-amber-300 font-medium">
+              <div class="flex text-amber-400">
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+              </div>
+              <span><b>80.000+ Học viên</b> &amp; Hàng trăm doanh nghiệp tin chọn</span>
+              <span class="text-slate-600 hidden sm:inline">•</span>
+              <span class="text-slate-300">Bảo trợ bởi <b>AIVA Group &amp; Học Viện AI</b></span>
+            </div>
+          </div>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            Khóa đào tạo chuyên sâu <b>2 buổi</b>: <b class="text-tpai-cyan">Sếp Chỉ Đạo</b> nắm tư duy điều hành & an toàn dữ liệu mật — <b class="text-tpai-amber">Trợ Lý Thực Thi</b> nắm kỹ thuật đóng gói Custom AI Agents. Học xong có ngay biệt đội Trợ lý AI chạy tự động mang về cắm vào doanh nghiệp!
+          </p>
+
+          <!-- Key Metrics Pills -->
+          <div class="grid grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0">
+            <div class="glass-card p-3 rounded-xl text-center border-tpai-border">
+              <div class="text-xl sm:text-2xl font-extrabold text-tpai-cyan">30% - 50%</div>
+              <div class="text-xs text-slate-400 mt-1">Giảm giờ sự vụ</div>
+            </div>
+            <div class="glass-card p-3 rounded-xl text-center border-tpai-border">
+              <div class="text-xl sm:text-2xl font-extrabold text-tpai-amber">100%</div>
+              <div class="text-xs text-slate-400 mt-1">Bảo mật nội bộ</div>
+            </div>
+            <div class="glass-card p-3 rounded-xl text-center border-tpai-border">
+              <div class="text-xl sm:text-2xl font-extrabold text-white">02 Buổi</div>
+              <div class="text-xs text-slate-400 mt-1">Có Bot chạy ngay</div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="#dang-ky" class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl glow-amber hover:brightness-110 transition text-base">
+              <i data-lucide="users" class="w-5 h-5"></i>
+              <span>ĐĂNG KÝ VÉ CẶP ĐÔI (9.9M)</span>
+            </a>
+            <a href="/dat-lich" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 border border-tpai-cyan/60 bg-tpai-cyan/10 hover:bg-tpai-cyan text-tpai-cyan hover:text-slate-950 font-semibold px-6 py-4 rounded-xl transition text-base">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span>Tư Vấn 1:1 Miễn Phí</span>
+            </a>
+          </div>
+
+          <!-- Price Framing Under Hero CTA -->
+          <div class="pt-1 text-center lg:text-left">
+            <div class="inline-flex items-center space-x-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full font-bold">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span>Chỉ ~13.500đ / ngày / người — Rẻ hơn 1 ly nước mía để sở hữu 2 Trợ lý AI làm việc cả đời!</span>
+            </div>
+          </div>
+
+          <!-- Micro-Journey After Purchase (Trấn an minh bạch 3 bước) -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-left text-xs text-slate-300 max-w-xl mx-auto lg:mx-0 space-y-1.5 shadow-lg">
+            <div class="font-bold text-emerald-400 flex items-center gap-1.5 pb-1 border-b border-white/5">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>3 BƯỚC NHẬN VÉ VIP NGAY SAU KHI ĐĂNG KÝ:</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">1</span>
+              <span>Quét mã VietQR thông minh (Tự động điền số tiền và cú pháp chuẩn).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">2</span>
+              <span>SePay Webhook tự động gửi Vé Mời VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email trong 3 giây.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">3</span>
+              <span>Mentor TPAI liên hệ qua Zalo hỗ trợ test phần mềm và chia phòng thực hành kèm 1-1 trước giờ học.</span>
+            </div>
+          </div>
+
+          <!-- Secondary CTA: Lead Magnet Funnel Link -->
+          <div class="pt-2 text-center lg:text-left">
+            <button onclick="openLeadMagnetModal()" class="inline-flex items-center space-x-2 text-xs sm:text-sm text-tpai-cyan hover:text-white underline font-semibold transition group">
+              <i data-lucide="gift" class="w-4 h-4 text-amber-400 group-hover:scale-110 transition shrink-0"></i>
+              <span>Chưa sẵn sàng mua vé? Bấm để nhận MIỄN PHÍ Bộ 50 Prompt & Cẩm Nang NĐ 30 &rarr;</span>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-center lg:justify-start space-x-4 text-xs text-slate-400 pt-1">
+            <span class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mr-1.5"></i> Kèm 1-1 tại chỗ</span>
+            <span class="flex items-center"><i data-lucide="shield-alert" class="w-4 h-4 text-tpai-cyan mr-1.5"></i> Hoàn tiền 100%</span>
+            <span class="flex items-center"><i data-lucide="file-check" class="w-4 h-4 text-amber-400 mr-1.5"></i> Nghị định 30</span>
+          </div>
+        </div>
+
+        <!-- Right Visual Showcase -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-tpai-cyan via-tpai-blue to-tpai-amber opacity-30 blur-2xl"></div>
+            <div class="relative glass-card rounded-2xl p-4 sm:p-6 overflow-hidden border border-tpai-cyan/30 shadow-2xl">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                <div class="flex items-center space-x-2">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                  <span class="text-xs text-slate-400 font-mono ml-2">TPAI AI-Agent-System.v2</span>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center">
+                  <i data-lucide="activity" class="w-3 h-3 mr-1 animate-pulse"></i> Live
+                </span>
+              </div>
+
+              <!-- Hero Video Showcase (Multi-scene Playable Video) -->
+              <div class="relative rounded-xl overflow-hidden border border-tpai-cyan/40 shadow-2xl mb-4 bg-slate-950 group cursor-pointer" onclick="togglePlayHeroVideo()">
+                <video id="heroVideo" poster="/assets/course-hero.png" class="w-full h-auto object-cover max-h-[380px] rounded-xl" playsinline controls preload="metadata">
+                  <source src="/assets/course-video.mp4" type="video/mp4">
+                  Trình duyệt không hỗ trợ video.
+                </video>
+
+                <!-- Big Shiny Play Button Overlay -->
+                <div id="videoPlayOverlay" class="absolute inset-0 bg-slate-950/40 hover:bg-slate-950/20 backdrop-blur-[2px] flex flex-col items-center justify-center transition duration-300 pointer-events-none">
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-tpai-cyan to-tpai-blue text-slate-950 flex items-center justify-center shadow-2xl glow-cyan group-hover:scale-110 transition duration-300 pointer-events-auto" onclick="togglePlayHeroVideo(); event.stopPropagation();">
+                    <i data-lucide="play" class="w-8 h-8 sm:w-10 sm:h-10 fill-current translate-x-0.5"></i>
+                  </div>
+                  <div class="mt-3 px-3.5 py-1.5 rounded-full bg-slate-900/95 border border-tpai-cyan/50 text-tpai-cyan text-xs font-bold shadow-xl tracking-wide flex items-center space-x-1.5 pointer-events-auto" onclick="togglePlayHeroVideo(); event.stopPropagation();">
+                    <span class="w-2 h-2 rounded-full bg-tpai-cyan animate-ping"></span>
+                    <span>Bấm Để Xem Video Đa Cảnh TPAI</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mini Feature Highlights -->
+              <div class="space-y-2.5 text-xs">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <div class="flex items-center space-x-2">
+                    <i data-lucide="bot" class="w-4 h-4 text-tpai-cyan"></i>
+                    <span class="font-medium text-slate-200">Trợ Lý Hành Chính - NĐ 30</span>
+                  </div>
+                  <span class="text-emerald-400 font-bold">Tự động 100%</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <div class="flex items-center space-x-2">
+                    <i data-lucide="database" class="w-4 h-4 text-tpai-amber"></i>
+                    <span class="font-medium text-slate-200">Bộ Não Số Google NotebookLM</span>
+                  </div>
+                  <span class="text-tpai-amber font-bold">Bảo Mật Nội Bộ</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <div class="flex items-center space-x-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+                    <span class="font-medium text-slate-200">Prompt Framework R-C-T-C-F</span>
+                  </div>
+                  <span class="text-purple-300 font-bold">Chuẩn Quốc Tế</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Schedule & Realtime Countdown Strip -->
+      <div class="mt-12 p-4 sm:p-6 rounded-2xl glass-card border border-tpai-cyan/40 bg-gradient-to-r from-tpai-navy via-slate-900 to-tpai-navy shadow-2xl">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div class="flex items-center space-x-4 text-center lg:text-left">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0">
+              <i data-lucide="calendar" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="text-[11px] sm:text-xs uppercase tracking-wider text-amber-400 font-extrabold flex items-center justify-center lg:justify-start space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                <span>LỊCH KHAI GIẢNG KHÓA K01: THỨ 7 (31/10) &amp; CHỦ NHẬT (01/11/2026)</span>
+              </div>
+              <div class="text-sm sm:text-base font-bold text-white mt-1">
+                Trực Tuyến Qua Zoom VIP (08:30 — 12:00) &bull; Breakout Room Kèm 1-1 Riêng &bull; Bản Quyền Record 4K Trọn Đời
+              </div>
+            </div>
+          </div>
+          
+          <!-- Realtime Countdown Timer -->
+          <div class="flex items-center space-x-2 sm:space-x-3 text-center">
+            <div class="bg-slate-950/90 border border-tpai-cyan/40 rounded-xl px-3 py-2 min-w-[56px] shadow-inner">
+              <div id="cd-days" class="text-xl sm:text-2xl font-extrabold text-tpai-cyan font-mono leading-none">09</div>
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Ngày</div>
+            </div>
+            <span class="text-tpai-cyan font-bold text-lg">:</span>
+            <div class="bg-slate-950/90 border border-tpai-cyan/40 rounded-xl px-3 py-2 min-w-[56px] shadow-inner">
+              <div id="cd-hours" class="text-xl sm:text-2xl font-extrabold text-tpai-cyan font-mono leading-none">17</div>
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Giờ</div>
+            </div>
+            <span class="text-tpai-cyan font-bold text-lg">:</span>
+            <div class="bg-slate-950/90 border border-tpai-cyan/40 rounded-xl px-3 py-2 min-w-[56px] shadow-inner">
+              <div id="cd-minutes" class="text-xl sm:text-2xl font-extrabold text-tpai-cyan font-mono leading-none">28</div>
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Phút</div>
+            </div>
+            <span class="text-tpai-cyan font-bold text-lg">:</span>
+            <div class="bg-slate-950/90 border border-amber-500/50 rounded-xl px-3 py-2 min-w-[56px] shadow-inner">
+              <div id="cd-seconds" class="text-xl sm:text-2xl font-extrabold text-amber-400 font-mono leading-none">45</div>
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-1">Giây</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 1: 3 Nỗi Đau Doanh Nghiệp -->
+  <section id="noi-dau" class="py-20 border-t border-white/10 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-red-400 mb-2">THỰC TRẠNG BUỐT RUỘT CỦA 90% DOANH NGHIỆP HIỆN NAY</h2>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          Tại Sao Mua Tài Khoản AI Về Nhưng Vẫn <span class="text-red-400">Đắp Chiếu Bỏ Xó?</span>
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="glass-card p-8 rounded-2xl border-red-500/20 relative group hover:border-red-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-6">
+            <i data-lucide="message-square-off" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-xl font-bold font-heading text-white mb-3">1. Ứng Dụng Rời Rạc, Không Ra Tiền</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Nhân viên biết mở ChatGPT nhưng chỉ hỏi đáp vu vơ vài câu. Câu trả lời chung chung, sáo rỗng, không thể cắm vào quy trình nghiệp vụ. Mua tài khoản Pro/Team tốn kém nhưng không đo lường được hiệu quả thực tế.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card p-8 rounded-2xl border-amber-500/20 relative group hover:border-amber-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6">
+            <i data-lucide="clock" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-xl font-bold font-heading text-white mb-3">2. Sếp Ngập Đầu Trong Việc Sự Vụ</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Báo cáo ngày/tuần/tháng làm thủ công mất nửa ngày; quy chế, công văn soạn sai thể thức; SOP không ai đọc. Sếp bận tối mắt giải quyết việc phát sinh của nhân viên thay vì tập trung chiến lược và phát triển kinh doanh.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card p-8 rounded-2xl border-blue-500/20 relative group hover:border-blue-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-tpai-cyan mb-6">
+            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-xl font-bold font-heading text-white mb-3">3. Nỗi Sợ Bị Rò Rỉ Dữ Liệu Mật</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Muốn ứng dụng AI sâu rộng nhưng lo sợ nhân sự dán dữ liệu khách hàng, danh sách lương thưởng và báo cáo tài chính lên các mô hình AI công cộng khiến bí mật kinh doanh bị đánh cắp ra bên ngoài.
+          </p>
+        </div>
+      </div>
+
+      
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</section>
+
+  <!-- Section: Cost of Inaction (Bảng Tính Thiệt Hại Thầm Lặng Của Doanh Nghiệp) -->
+  <section id="chi-phi-an" class="py-16 border-t border-white/10 bg-slate-950 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold mb-3">
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+          <span>THE COST OF INACTION &bull; CHI PHÍ CỦA SỰ CHẬM TRỄ</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          Doanh Nghiệp Đang <span class="text-red-400">Vứt Qua Cửa Sổ Bao Nhiêu Tiền</span> Mỗi Tháng Vì Làm Việc Thủ Công?
+        </h3>
+        <p class="text-slate-400 text-sm mt-3">Khách hàng không mua không phải vì tiếc 9.9M, mà vì chưa nhìn thấy con số lãng phí thầm lặng này:</p>
+      </div>
+
+      <!-- Bảng Tính Thiệt Hại So Sánh -->
+      <div class="glass-card rounded-2xl overflow-hidden border border-red-500/30 shadow-2xl mb-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+            <thead class="bg-red-950/40 text-xs font-extrabold uppercase text-slate-200 border-b border-red-500/20">
+              <tr>
+                <th class="py-4 px-4 sm:px-6">Hạng mục công việc sự vụ</th>
+                <th class="py-4 px-4 sm:px-6 text-red-300">Làm thủ công kiểu cũ</th>
+                <th class="py-4 px-4 sm:px-6 text-tpai-cyan">Tự động hóa cùng TPAI</th>
+                <th class="py-4 px-4 sm:px-6 text-right text-amber-400">Lãng phí mỗi tháng</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-medium">
+              <tr class="hover:bg-white/5 transition">
+                <td class="py-4 px-4 sm:px-6 font-bold text-white">Soạn công văn, tờ trình, báo cáo NĐ 30</td>
+                <td class="py-4 px-4 sm:px-6 text-slate-400">Mất 2 - 3 tiếng/văn bản, hay sai thể thức</td>
+                <td class="py-4 px-4 sm:px-6 text-emerald-400 font-bold">Xong trong 2 phút (Chuẩn 100% NĐ 30)</td>
+                <td class="py-4 px-4 sm:px-6 text-right font-bold text-red-400">~ 12.000.000đ</td>
+              </tr>
+              <tr class="hover:bg-white/5 transition">
+                <td class="py-4 px-4 sm:px-6 font-bold text-white">Tổng hợp báo cáo tuần/tháng từ Excel</td>
+                <td class="py-4 px-4 sm:px-6 text-slate-400">Mất cả buổi chiều đối soát số liệu</td>
+                <td class="py-4 px-4 sm:px-6 text-emerald-400 font-bold">30 giây tải lên NotebookLM tóm tắt</td>
+                <td class="py-4 px-4 sm:px-6 text-right font-bold text-red-400">~ 15.000.000đ</td>
+              </tr>
+              <tr class="hover:bg-white/5 transition">
+                <td class="py-4 px-4 sm:px-6 font-bold text-white">Viết bài truyền thông, kịch bản, ảnh mẫu</td>
+                <td class="py-4 px-4 sm:px-6 text-slate-400">Thuê ngoài 5-8 triệu/tháng hoặc bí ý</td>
+                <td class="py-4 px-4 sm:px-6 text-emerald-400 font-bold">5 phút ra 10 bài viết + ảnh Infographic</td>
+                <td class="py-4 px-4 sm:px-6 text-right font-bold text-red-400">~ 8.000.000đ</td>
+              </tr>
+              <tr class="bg-red-950/30 font-bold text-sm sm:text-base border-t-2 border-red-500/40">
+                <td colspan="3" class="py-4 px-4 sm:px-6 text-white uppercase tracking-wider">
+                  TỔNG CHI PHÍ THỜI GIAN &amp; LƯƠNG LÃNG PHÍ MỖI THÁNG:
+                </td>
+                <td class="py-4 px-4 sm:px-6 text-right text-red-400 text-lg sm:text-xl font-extrabold">
+                  ~ 35.000.000đ / THÁNG
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Đòn bẩy tâm lý thức tỉnh -->
+      <div class="glass-card-amber p-6 rounded-2xl border border-amber-500/40 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="text-sm sm:text-base font-extrabold text-white">
+            💡 Khoản đầu tư <span class="text-amber-400">9.900.000đ (cho 2 người)</span> chỉ bằng <span class="text-emerald-400">1 tuần lương</span> của 1 nhân sự!
+          </div>
+          <div class="text-xs sm:text-sm text-slate-300">
+            Nhưng giúp công ty anh/chị bịt kín khoản rò rỉ 35 triệu mỗi tháng và sở hữu 2 trợ lý AI phục vụ suốt đời.
+          </div>
+        </div>
+        <a href="#dang-ky" class="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold px-6 py-3 rounded-xl shadow-lg hover:brightness-110 transition text-xs sm:text-sm shrink-0">
+          <span>Bịt Lỗ Rò Rỉ Ngay</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</section>
+
+  <!-- Section: Sub-copy "Dành Cho Ai & Ai Không Phù Hợp" -->
+  <section id="doi-tuong" class="py-16 border-t border-white/10 bg-tpai-dark relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-tpai-cyan mb-2">TIÊU CHÍ TUYỂN CHỌN HỌC VIÊN K01</h2>
+        <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+          Khóa Học Này <span class="text-emerald-400">Dành Cho Ai</span> &amp; <span class="text-red-400">Ai Không Nên Tham Gia?</span>
+        </h3>
+        <p class="text-slate-400 text-sm mt-2">Chúng tôi minh bạch ngay từ đầu để đảm bảo 100% học viên tham gia đều đạt kết quả cao nhất.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <!-- Cột Dành Cho Bạn (Green) -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border-emerald-500/30 bg-emerald-950/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 text-emerald-400 font-bold font-heading text-base sm:text-lg mb-4 pb-3 border-b border-emerald-500/20">
+              <i data-lucide="check-circle" class="w-5 h-5"></i>
+              <span>KHÓA HỌC NÀY DÀNH CHO BẠN NẾU:</span>
+            </div>
+            <ul class="space-y-3.5 text-xs sm:text-sm text-slate-200">
+              <li class="flex items-start">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn là <b>Chủ doanh nghiệp, Giám đốc, Quản lý</b> đang ngập đầu trong việc sự vụ và muốn giải phóng ít nhất 50% thời gian.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn muốn đưa <b>Trợ lý / Nhân sự cốt cán</b> cùng học để về tự tay cắm bot vận hành, Sếp không phải mất công dạy lại.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn cần chuẩn hóa công văn, tờ trình, quy chế nội bộ theo chuẩn thể thức <b>Nghị định số 30/2020/NĐ-CP</b>.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn muốn sở hữu phương pháp <b>No-Code trực quan</b>, không cần biết lập trình vẫn tự làm chủ AI.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-emerald-500/20 text-xs text-emerald-300 font-semibold flex items-center gap-1.5">
+            <i data-lucide="zap" class="w-4 h-4"></i>
+            <span>Cam kết học xong có sản phẩm bot chạy tự động mang về công ty!</span>
+          </div>
+        </div>
+
+        <!-- Cột Không Dành Cho Bạn (Red) -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border-red-500/30 bg-red-950/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 text-red-400 font-bold font-heading text-base sm:text-lg mb-4 pb-3 border-b border-red-500/20">
+              <i data-lucide="x-circle" class="w-5 h-5"></i>
+              <span>KHÓA HỌC KHÔNG PHÙ HỢP NẾU:</span>
+            </div>
+            <ul class="space-y-3.5 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-start">
+                <i data-lucide="x" class="w-4 h-4 text-red-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn đang tìm kiếm các chiêu trò AI "làm giàu nhanh sau một đêm" hoặc kiếm tiền chớp nhoáng.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="x" class="w-4 h-4 text-red-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn chỉ muốn ngồi nghe lý thuyết suông mà không chịu mở máy tính thực hành trực tiếp cùng Mentor.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="x" class="w-4 h-4 text-red-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Bạn không có máy tính/laptop cá nhân có kết nối Internet để tham gia phòng thực hành.</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="x" class="w-4 h-4 text-red-400 mr-2.5 mt-0.5 shrink-0"></i>
+                <span>Doanh nghiệp của bạn chưa có nhân sự hoặc chưa có quy trình làm việc tối thiểu.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-red-500/20 text-xs text-slate-400 italic">
+            Nếu bạn thuộc nhóm này, vui lòng tham khảo các tài liệu miễn phí thay vì mua vé để tránh lãng phí thời gian.
+          </div>
+        </div>
+      </div>
+
+      
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</section>
+
+  <!-- Section 1.5: Lead Magnet Funnel Capture (Tải Cẩm Nang & 50 Prompt Miễn Phí) -->
+  <section id="tai-tai-lieu" class="py-20 border-t border-white/10 bg-gradient-to-b from-tpai-navy/50 via-slate-950 to-tpai-navy/40 relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
+    <div class="absolute top-1/2 left-0 -translate-y-1/2 w-72 h-72 bg-tpai-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-bold uppercase tracking-wider mb-3">
+          <i data-lucide="gift" class="w-4 h-4"></i>
+          <span>MỒI HÚT ĐẶC QUYỀN &bull; TẶNG MIỄN PHÍ 100% (TRỊ GIÁ 5.000.000Đ)</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white leading-tight">
+          Bộ 50 Prompt Master & Framework R-C-T-C-F Cho 6 Phòng Ban
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base mt-3 leading-relaxed">
+          File Word (.docx) chuẩn 100% Nghị định 30/2020/NĐ-CP & Ebook PDF trực quan — Giúp doanh nghiệp chuẩn hóa quy chế, công văn, ma trận RACI, SOP và báo cáo điều hành chỉ trong 30 giây!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left: Preview & Value Points -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <div class="glass-card p-4 rounded-xl border-white/10 hover:border-tpai-cyan/40 transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-tpai-cyan/10 border border-tpai-cyan/30 flex items-center justify-center text-tpai-cyan shrink-0 mt-0.5">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white mb-1">Chuẩn Nghị Định 30</h4>
+                  <p class="text-xs text-slate-400 leading-relaxed">File Word chuẩn thể thức Quốc hiệu - Tiêu ngữ, số hiệu, trích yếu và nơi nhận theo chuẩn quốc gia.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl border-white/10 hover:border-tpai-cyan/40 transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0 mt-0.5">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white mb-1">Framework R-C-T-C-F</h4>
+                  <p class="text-xs text-slate-400 leading-relaxed">5 thành tố Role - Context - Task - Constraints - Format triệt tiêu 100% hiện tượng AI ảo giác.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl border-white/10 hover:border-tpai-cyan/40 transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                  <i data-lucide="layers" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white mb-1">Bao Phủ 6 Phòng Ban</h4>
+                  <p class="text-xs text-slate-400 leading-relaxed">Hành chính - Nhân sự, Kế hoạch, Sản xuất, Kỹ thuật cơ điện, Marketing và Báo cáo điều hành cho sếp.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl border-white/10 hover:border-tpai-cyan/40 transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white mb-1">Bảo Mật Tri Thức Số</h4>
+                  <p class="text-xs text-slate-400 leading-relaxed">Hướng dẫn nạp sổ tay nội bộ vào Google NotebookLM an toàn, không lo rò rỉ dữ liệu mật công ty.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Mockup Image Preview Card -->
+          <div class="glass-card rounded-2xl p-4 sm:p-5 border border-tpai-cyan/30 flex flex-col sm:flex-row items-center gap-5">
+            <img src="/assets/handbook-preview.png" alt="Preview Cẩm Nang AI 50 Prompt" class="w-full sm:w-48 h-auto object-cover rounded-xl shadow-xl border border-white/10">
+            <div class="space-y-2 text-center sm:text-left">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[11px] font-bold">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                <span>Tài liệu đã sẵn sàng tải về</span>
+              </div>
+              <h5 class="text-sm sm:text-base font-bold text-white font-heading">Trọn Bộ 2 File Thực Chiến Sẵn Dùng:</h5>
+              <ul class="text-xs text-slate-300 space-y-1">
+                <li>• <b>tai-lieu-huong-dan-ai-nghi-dinh-30.docx</b> (103 KB)</li>
+                <li>• <b>cam-nang-50-prompt-tpai.pdf</b> (1.88 MB)</li>
+              </ul>
+              <div class="text-[11px] text-amber-400 font-medium">Bản quyền độc quyền: Tuấn Phạm — Học Viện AI (2026)</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Fast Lead Capture Opt-in Form -->
+        <div class="lg:col-span-5">
+          <div class="glass-card-amber rounded-2xl p-6 sm:p-8 border-2 border-amber-500/40 shadow-2xl relative">
+            <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 text-[11px] font-extrabold uppercase px-3 py-1 rounded-full shadow tracking-wider">
+              ⚡ TẢI MIỄN PHÍ 0Đ
+            </div>
+
+            <div class="mb-5 text-center sm:text-left">
+              <h4 class="text-xl font-bold font-heading text-white">Điền Thông Tin Nhận Tức Thì</h4>
+              <p class="text-xs text-slate-400 mt-1">Hệ thống mở link tải trực tiếp ngay và gửi 1 bản backup về email của bạn.</p>
+            </div>
+
+            <form id="leadMagnetInlineForm" onsubmit="handleLeadMagnetSubmit(event, 'inline')" class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Họ Và Tên <span class="text-red-400">*</span></label>
+                <input type="text" id="magnetInlineName" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Số Điện Thoại / Zalo <span class="text-red-400">*</span></label>
+                <input type="tel" id="magnetInlinePhone" required placeholder="09xx xxx xxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Email Nhận Tài Liệu <span class="text-red-400">*</span></label>
+                <input type="email" id="magnetInlineEmail" required placeholder="email@congty.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Doanh Nghiệp / Lĩnh Vực</label>
+                <input type="text" id="magnetInlineCompany" placeholder="Ví dụ: Công ty May Mặc / Bán Lẻ..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+              </div>
+
+              <button type="submit" id="btnMagnetInlineSubmit" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-tpai-cyan via-tpai-blue to-tpai-cyan text-slate-950 font-extrabold text-sm shadow-xl glow-cyan hover:brightness-110 transition flex items-center justify-center space-x-2">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span id="btnMagnetInlineText">TẢI VỀ MIỄN PHÍ TRỌN BỘ FILE WORD & PDF</span>
+              </button>
+
+              <div class="flex items-center justify-center space-x-2 text-[11px] text-slate-400 text-center pt-1">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                <span>Bảo mật tuyệt đối &bull; Không spam &bull; Hủy đăng ký bất kỳ lúc nào</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: Hồ Sơ Chuyên Gia Huấn Luyện & Mentor Thực Chiến -->
+  <section id="giang-vien" class="py-20 border-t border-white/10 bg-slate-950/60 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-tpai-cyan mb-2">ĐỘI NGŨ CHUYÊN GIA &amp; MENTOR THỰC CHIẾN</h2>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          Học Trực Tiếp Cùng Chuyên Gia — <span class="text-gradient-cyan">Không Dạy Lý Thuyết Suông</span>
+        </h3>
+        <p class="text-slate-400 text-sm mt-3">Cam kết 100% học viên tự tay đóng gói và vận hành AI Agent ngay tại lớp học Zoom VIP.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Card 1: Thầy Tuấn Phạm -->
+        <div class="glass-card rounded-2xl p-8 border-tpai-cyan/40 relative flex flex-col justify-between hover:border-tpai-cyan transition shadow-2xl">
+          <div>
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-tpai-blue via-tpai-navy to-tpai-cyan p-0.5 shadow-xl">
+                <div class="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center text-tpai-cyan font-extrabold font-heading text-2xl">
+                  TP
+                </div>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold font-heading text-white">Thầy Tuấn Phạm</h4>
+                <div class="text-xs text-tpai-cyan font-semibold">Chuyên Gia Trưởng Học Viện AI &bull; Founder TPAI</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Hotline/Zalo: 0977.138.673</div>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+              Hơn 10 năm kinh nghiệm trong chuyển đổi số và tối ưu quy trình doanh nghiệp. Đã trực tiếp huấn luyện hàng trăm chủ doanh nghiệp SME, giám đốc điều hành và quản lý cấp cao ứng dụng AI thực chiến.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Tác giả Framework Prompt R-C-T-C-F chuẩn quốc tế</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Chuyên gia chuẩn hóa văn bản Nghị định 30/2020/NĐ-CP</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Trực tiếp sửa bài và tháo gỡ bài toán cho từng sếp</li>
+            </ul>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 text-xs font-semibold text-tpai-amber">
+            ⭐ Triết lý: "Học là phải đóng gói được Bot mang về dùng ngay!"
+          </div>
+        </div>
+
+        <!-- Card 2: Đối Tác Chiến Lược AIVA Group -->
+        <div class="glass-card rounded-2xl p-8 border-white/10 relative flex flex-col justify-between hover:border-white/30 transition">
+          <div>
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 via-tpai-blue to-tpai-cyan p-0.5 shadow-xl">
+                <div class="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center text-amber-400 font-extrabold font-heading text-xl">
+                  AIVA
+                </div>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold font-heading text-white">Học Viện AI &amp; AIVA</h4>
+                <div class="text-xs text-amber-400 font-semibold">Chủ Tịch Cao Xuân Hoài Vương</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Tập Đoàn Công Nghệ AIVA Group</div>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+              Đơn vị bảo trợ học thuật và đồng hành chiến lược. Hệ sinh thái phần mềm AI và đào tạo chuyển đổi số doanh nghiệp tiên phong tại Việt Nam với slogan: <i>"Làm chủ AI — Kiến tạo tương lai"</i>.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> Cung cấp giáo trình cập nhật công nghệ AI 2026 mới nhất</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> Hỗ trợ nền tảng phần mềm và thư viện prompt độc quyền</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> Kết nối cộng đồng doanh nhân ứng dụng AI lớn nhất VN</li>
+            </ul>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 text-xs font-semibold text-slate-400">
+            🏢 Bảo trợ công nghệ: Tập đoàn AIVA Group
+          </div>
+        </div>
+
+        <!-- Card 3: Đội Ngũ Mentor Kèm 1-1 -->
+        <div class="glass-card-amber rounded-2xl p-8 border border-amber-500/40 relative flex flex-col justify-between hover:border-amber-500/60 transition shadow-xl">
+          <div>
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                <i data-lucide="users-2" class="w-8 h-8"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold font-heading text-white">Đội Ngũ Mentor VIP</h4>
+                <div class="text-xs text-amber-400 font-semibold">Kèm 1-1 Riêng Qua Zoom</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Breakout Room &bull; Ultraview &bull; Anydesk</div>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+              Không để bất kỳ học viên nào bị tụt lại phía sau! Mỗi học viên hoặc cặp Sếp &amp; Trợ lý đều có Mentor kỹ thuật hỗ trợ trực tiếp trên màn hình máy tính của bạn suốt 2 buổi học.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mr-2 shrink-0"></i> Cầm tay chỉ việc từng thao tác cài đặt và kết nối</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mr-2 shrink-0"></i> Xử lý trực tiếp vướng mắc trên dữ liệu riêng công ty</li>
+              <li class="flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mr-2 shrink-0"></i> Hỗ trợ tiếp tục 30 ngày sau khi khóa học kết thúc</li>
+            </ul>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 text-xs font-semibold text-emerald-400">
+            ✓ Cam kết 100% học viên ra sản phẩm ngay tại chỗ
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 2: Chương Trình Đào Tạo 2 Buổi (Phân Rã 7 Modules Thực Chiến) -->
+  <section id="chuong-trinh" class="py-20 border-t border-white/10 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tpai-cyan/10 border border-tpai-cyan/30 text-tpai-cyan text-xs font-bold mb-3">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span>LỘ TRÌNH 7 MODULES THỰC CHIẾN ĐỘC QUYỀN</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          2 Buổi Huấn Luyện — <span class="text-gradient-cyan">Mang Trợ Lý AI Về Doanh Nghiệp Chạy Ngay</span>
+        </h3>
+        <p class="text-slate-400 text-sm mt-3">20% Tư Duy Chiến Lược &amp; Bảo Mật — 80% Thực Hành Trên Bài Toán Riêng Của Doanh Nghiệp</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Buổi 1: Thứ 7 (31/10/2026) -->
+        <div class="glass-card rounded-2xl p-8 border-tpai-border relative flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-tpai-blue/40 border border-tpai-cyan/40 text-tpai-cyan text-xs font-extrabold">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                <span>BUỔI 1: THỨ BẢY (31/10/2026) &bull; 08:30 — 12:00</span>
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Zoom VIP Quốc Tế</span>
+            </div>
+
+            <h4 class="text-2xl font-bold font-heading text-white mb-2">
+              Làm Chủ Vũ Khí AI &amp; Chuẩn Hóa Prompt Nghiệp Vụ
+            </h4>
+            <p class="text-slate-300 text-sm mb-6">Nền tảng triệt tiêu 100% ảo giác AI và tự động hóa toàn bộ văn bản nghiệp vụ hành chính doanh nghiệp.</p>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-tpai-cyan">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 1: Bản Đồ Công Cụ AI 2026 &amp; Tường Lửa Bảo Mật Zero-Data-Leak
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Phân tích ChatGPT Plus/Team, Gemini 2.5, Claude 3.5 Sonnet. Thiết lập quy tắc phân loại tài liệu mật, không bao giờ để lộ bí mật kinh doanh ra ngoài.
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-tpai-cyan">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 2: Prompt Engineering Chuẩn Quốc Tế — Framework R-C-T-C-F
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Công thức 5 thành tố: Role (Vai trò) &bull; Context (Ngữ cảnh) &bull; Task (Nhiệm vụ) &bull; Constraints (Ràng buộc) &bull; Format (Định dạng). Xóa bỏ câu trả lời chung chung.
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-tpai-cyan">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 3: Soạn Thảo Văn Bản Chuẩn Nghị Định 30/2020/NĐ-CP Trong 60 Giây
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Tự động hóa soạn thảo tờ trình, quyết định, quy chế, công văn đúng 100% font chữ, căn lề 30-15-20-20mm và Quốc hiệu Tiêu ngữ theo luật định.
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-tpai-cyan">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 4: Trích Xuất Báo Cáo Điều Hành 1 Trang (Executive Summary)
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Biến bảng số liệu doanh thu, chi phí thô hàng trăm dòng thành báo cáo cô đọng 1 trang giúp Ban Giám Đốc ra quyết định kinh doanh tức thì.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-tpai-cyan font-semibold">
+            <span>🎯 Kết quả đầu ra Buổi 1:</span>
+            <span>01 Bộ văn bản NĐ 30 &amp; Framework Prompt chạy thực tế</span>
+          </div>
+        </div>
+
+        <!-- Buổi 2: Chủ Nhật (01/11/2026) -->
+        <div class="glass-card-amber rounded-2xl p-8 border-amber-500/40 relative flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-extrabold">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                <span>BUỔI 2: CHỦ NHẬT (01/11/2026) &bull; 08:30 — 12:00</span>
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Zoom VIP Quốc Tế</span>
+            </div>
+
+            <h4 class="text-2xl font-bold font-heading text-white mb-2">
+              Đóng Gói Custom AI Agents &amp; Bộ Não Số NotebookLM
+            </h4>
+            <p class="text-slate-300 text-sm mb-6">Xây dựng hệ thống Trợ lý số chuyên trách phòng ban và kho tri thức nội bộ bảo mật tuyệt đối.</p>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-amber-400">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 5: Google NotebookLM — "Bộ Não Số" Lưu Trữ Tri Thức Bảo Mật
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Biến toàn bộ sổ tay quy trình, tài liệu kỹ thuật, hợp đồng mẫu thành Bộ não số. Nhân viên hỏi đáp chính xác số trang nguồn trong 3 giây.
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-amber-400">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 6: Tự Đóng Gói Custom AI Agents Chuyên Trách Phòng Ban
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Tự tay cấu hình Trợ lý Hành chính - Nhân sự, Trợ lý Viết Content &amp; Chốt Sale, Trợ lý Quản lý Sản xuất &bull; Cung cấp System Prompt chuẩn.
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex items-center text-amber-400">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 shrink-0"></i>
+                  Module 7: Tích Hợp Quy Trình Vận Hành &amp; Công Thức Đo Lường ROI
+                </div>
+                <div class="text-slate-400 pl-6 text-xs">
+                  Công thức tính số giờ công tiết kiệm được cho doanh nghiệp, lộ trình nhân bản AI cho toàn bộ nhân sự và kế hoạch chuyển giao công nghệ.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-amber-400 font-semibold">
+            <span>🎯 Kết quả đầu ra Buổi 2:</span>
+            <span>01 Custom AI Agent &amp; 01 Bộ não số NotebookLM bàn giao</span>
+          </div>
+        </div>
+
+      </div>
+
+      
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</section>
+
+  <!-- Section 3: Bảng Giá Bậc Thang (Value Ladder) -->
+  <section id="bang-gia" class="py-20 border-t border-white/10 bg-tpai-navy/30 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-tpai-amber mb-2">CHÍNH SÁCH ĐỊNH GIÁ ĐÒN BẨY</h2>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          Lựa Chọn Gói Tham Gia Phù Hợp Cho Doanh Nghiệp
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Package 1: Cá nhân -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-white/10 hover:border-white/30 transition">
+          <div>
+            <div class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">Vé Cá Nhân</div>
+            <h4 class="text-2xl font-bold font-heading text-white mb-4">Chuyên Viên / Freelancer</h4>
+            <div class="mb-4">
+              <span id="priceCardSingle" class="text-3xl sm:text-4xl font-extrabold text-white">6.000.000đ</span>
+              <span class="text-slate-400 text-xs"> / người</span>
+              <div class="text-[11px] text-amber-400 font-semibold mt-1">Chỉ ~16.000đ/ngày — Bằng 1 ly cà phê vỉa hè</div>
+            </div>
+            <p class="text-xs text-slate-300 pb-6 border-b border-white/10">Dành cho cá nhân muốn nhân bản năng suất làm việc gấp 3-5 lần.</p>
+            <ul class="space-y-3.5 text-xs text-slate-300 py-6">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> 01 Vé tham dự trọn vẹn 2 buổi đào tạo</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Mentor hỗ trợ thực hành tại chỗ</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Bộ Ebook 50 Prompt Master & SOP NĐ 30</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Hỗ trợ giải đáp thắc mắc 30 ngày</li>
+            </ul>
+          </div>
+          <button onclick="selectPackage('single_6000k')" class="w-full py-3 px-4 rounded-xl border border-white/20 hover:border-tpai-cyan text-white font-bold text-sm transition">
+            Chọn Vé Cá Nhân
+          </button>
+        </div>
+
+        <!-- Package 2: CẶP ĐÔI (HERO OFFER) -->
+        <div class="glass-card-amber rounded-2xl p-8 flex flex-col justify-between relative border-2 border-amber-400 shadow-2xl scale-105 z-10">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 text-xs font-extrabold uppercase px-4 py-1.5 rounded-full shadow-md tracking-wider">
+            ⭐ KHUYẾN NGHỊ (75% CHỌN)
+          </div>
+
+          <div>
+            <div class="text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Vé Cặp Đôi Chiến Lược</div>
+            <h4 class="text-2xl font-bold font-heading text-white mb-2">Sếp Chỉ Đạo — Trợ Lý Thực Thi</h4>
+            <div class="text-xs text-emerald-400 font-bold mb-4">Tiết kiệm ngay 2.100.000đ khi đi 2 người!</div>
+            
+            <div class="mb-4">
+              <span class="text-slate-500 line-through text-sm mr-2">12.000.000đ</span>
+              <span id="priceCardCombo" class="text-3xl sm:text-4xl font-extrabold text-gradient-amber">9.900.000đ</span>
+              <span class="text-slate-400 text-xs"> / 02 người</span>
+              <div class="mt-2 inline-block bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-lg text-xs font-bold">
+                🔥 Chỉ ~13.500đ / ngày / người — Bằng 1 tuần lương thử việc đổi lấy tự động hóa trọn đời!
+              </div>
+            </div>
+            
+            <p class="text-xs text-slate-300 pb-4 border-b border-amber-500/20">
+              Sếp nắm tư duy & bảo mật, Trợ lý nắm kỹ thuật thực thi. Về là cắm bot chạy tự động!
+            </p>
+
+            <ul class="space-y-3.5 text-xs text-slate-200 py-6">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> <b>02 Vé tham dự cho Sếp + 01 Trợ lý / Quản lý</b></li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> <b>Mentor kèm 1-1 từng máy tính</b> cam kết ra sản phẩm</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> Thư viện 50 Prompt Master & SOP NĐ 30</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> Bộ Template nạp tri thức Google NotebookLM</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-400 mr-2 shrink-0"></i> 03 Tháng sinh hoạt Cộng đồng Doanh chủ AI VIP</li>
+              <li class="flex items-center text-amber-300 font-bold"><i data-lucide="zap" class="w-4 h-4 mr-2 shrink-0"></i> <b>Fast-Action: 01 Buổi Coaching 1-1 riêng cùng Chuyên gia</b></li>
+            </ul>
+          </div>
+
+          <button onclick="selectPackage('combo_9900k')" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-sm shadow-lg glow-amber hover:brightness-110 transition">
+            ĐĂNG KÝ GÓI CẶP ĐÔI (9.9M)
+          </button>
+        </div>
+
+        <!-- Package 3: In-House -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-white/10 hover:border-white/30 transition">
+          <div>
+            <div class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">Đào Tạo Doanh Nghiệp</div>
+            <h4 class="text-2xl font-bold font-heading text-white mb-4">In-House Toàn Đội Ngũ</h4>
+            <div class="mb-6">
+              <span id="priceCardInhouse" class="text-3xl sm:text-4xl font-extrabold text-white">28.000.000đ</span>
+              <span class="text-slate-400 text-xs"> / 10-20 người</span>
+            </div>
+            <p class="text-xs text-slate-300 pb-6 border-b border-white/10">May đo giáo trình theo đặc thù từng phòng ban tại trụ sở doanh nghiệp.</p>
+            <ul class="space-y-3.5 text-xs text-slate-300 py-6">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Huấn luyện tận nơi cho 10-20 nhân sự</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Khảo sát và giải quyết trực tiếp bài toán công ty</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> Đóng gói trọn bộ AI Agents cho từng phòng ban</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-tpai-cyan mr-2 shrink-0"></i> <b>Đặc quyền: Trừ 100% học phí gói 9.9M nếu nâng cấp!</b></li>
+            </ul>
+          </div>
+          <a href="/dat-lich" class="w-full py-3 px-4 rounded-xl border border-tpai-cyan/50 bg-tpai-cyan/10 hover:bg-tpai-cyan text-tpai-cyan hover:text-slate-950 font-bold text-sm transition flex items-center justify-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Đặt Lịch Tư Vấn 1:1 Miễn Phí</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Micro-Journey After Purchase Card -->
+      <div class="mt-12 p-5 rounded-2xl bg-slate-900/90 border border-emerald-500/30 text-xs sm:text-sm text-slate-300 max-w-3xl mx-auto shadow-2xl">
+        <div class="font-bold text-emerald-400 flex items-center gap-2 pb-2 mb-3 border-b border-white/10 text-sm sm:text-base">
+          <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+          <span>QUY TRÌNH 3 BƯỚC AN TÂM 100% NGAY SAU KHI ĐĂNG KÝ VÉ:</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Quét Mã VietQR</div>
+              <div class="text-slate-400 text-xs">Mã QR thông minh tự động điền số tiền và cú pháp chuẩn xác.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+  <!-- Section 4: The Value Stack 45.000.000đ -->
+  <section id="value-stack" class="py-20 border-t border-white/10 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-tpai-cyan mb-2">GIÁ TRỊ VƯỢT TRỘI KHÔNG THỂ CHỐI TỪ</h2>
+        <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+          Tổng Hợp Gói Quà Tặng & Đào Tạo Trị Giá <span class="text-gradient-amber">45.000.000 VNĐ</span>
+        </h3>
+      </div>
+
+      <div class="glass-card rounded-2xl overflow-hidden border-tpai-border">
+        <div class="divide-y divide-white/10 text-sm">
+          <div class="p-4 sm:p-5 flex items-center justify-between">
+            <span class="text-slate-200">1. Khóa đào tạo thực chiến 2 buổi chuyên sâu cho 02 người (Sếp + Trợ lý)</span>
+            <span class="font-bold text-slate-300">15.000.000đ</span>
+          </div>
+          <div class="p-4 sm:p-5 flex items-center justify-between">
+            <span class="text-slate-200">2. Đội ngũ Mentor kỹ thuật hỗ trợ kèm 1-1 từng máy tính tại chỗ</span>
+            <span class="font-bold text-slate-300">8.000.000đ</span>
+          </div>
+          <div class="p-4 sm:p-5 flex items-center justify-between">
+            <span class="text-slate-200">3. Bonus 1: Bản quyền Thư viện 50 Prompt Master & SOP NĐ 30 (Word + PDF)</span>
+            <span class="font-bold text-slate-300">5.000.000đ</span>
+          </div>
+          <div class="p-4 sm:p-5 flex items-center justify-between">
+            <span class="text-slate-200">4. Bonus 2: Bộ Template nạp tri thức nội bộ Google NotebookLM</span>
+            <span class="font-bold text-slate-300">3.000.000đ</span>
+          </div>
+          <div class="p-4 sm:p-5 flex items-center justify-between">
+            <span class="text-slate-200">5. Bonus 3: 03 Tháng sinh hoạt tại Cộng đồng Doanh chủ Ứng dụng AI VIP</span>
+            <span class="font-bold text-slate-300">6.000.000đ</span>
+          </div>
+          <div class="p-4 sm:p-5 flex items-center justify-between bg-amber-500/10">
+            <span class="text-amber-300 font-semibold">6. Fast-Action Bonus: 01 Buổi Coaching 1-1 trực tiếp cùng Chuyên gia</span>
+            <span class="font-bold text-amber-400">8.000.000đ</span>
+          </div>
+          <div class="p-5 sm:p-6 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between text-base">
+            <div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider">TỔNG GIÁ TRỊ NHẬN ĐƯỢC</div>
+              <div class="text-2xl font-extrabold text-slate-400 line-through">45.000.000 VNĐ</div>
+            </div>
+            <div class="mt-4 sm:mt-0 text-right">
+              <div class="text-xs text-amber-400 font-bold uppercase tracking-wider">HỌC PHÍ ƯU ĐÃI GÓI CẶP ĐÔI</div>
+              <div class="text-3xl font-extrabold text-gradient-amber">9.900.000 VNĐ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Doanh Chủ Tiêu Biểu & Cảm Nhận Thực Tế -->
+  <section id="danh-gia" class="py-20 border-t border-white/10 bg-slate-950/50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold mb-3">
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+          <span>KẾT QUẢ THỰC TẾ TỪ CÁC DOANH NGHIỆP</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          Doanh Chủ Nói Gì Sau Khi <span class="text-gradient-cyan">Mang Trợ Lý AI Về Vận Hành?</span>
+        </h3>
+        <p class="text-slate-400 text-sm mt-3">Hơn 92% học viên hoàn vốn học phí ngay trong 30 ngày đầu nhờ tiết kiệm hàng chục giờ công sự vụ.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <!-- Review 1: Cơ điện & Sản xuất -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border-tpai-border flex flex-col justify-between hover:border-tpai-cyan transition shadow-xl">
+          <div>
+            <div class="flex items-center space-x-1 text-amber-400 mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed italic mb-6">
+              "Trước đây nhân viên làm báo cáo đối soát vật tư từ các công trường mất cả buổi chiều đối soát thủ công trên Excel. Sau buổi 2 của Thầy Tuấn, bạn trợ lý đưa dữ liệu vào Google NotebookLM đọc tóm tắt trong 30 giây là xong. Sếp không còn phải nhắc từng việc sự vụ!"
+            </p>
+          </div>
+          <div class="border-t border-white/10 pt-4 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-tpai-cyan to-tpai-blue flex items-center justify-center font-bold text-slate-950 text-sm">
+              NH
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white font-heading">Anh Nguyễn Hùng</div>
+              <div class="text-[11px] text-tpai-cyan font-medium">Giám Đốc &bull; Công Ty Cơ Điện &amp; Xây Lắp (Hà Nội)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2: F&B & Bán lẻ (Hero Testimonial Gói Cặp Đôi) -->
+        <div class="glass-card-amber rounded-2xl p-6 sm:p-8 border-amber-500/40 flex flex-col justify-between hover:border-amber-500/60 transition shadow-xl">
+          <div>
+            <div class="flex items-center space-x-1 text-amber-400 mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-slate-200 text-xs sm:text-sm leading-relaxed italic mb-6">
+              "Hai vợ chồng mình cùng bạn quản lý đăng ký Gói Cặp Đôi 9.9M. Học Zoom VIP có Mentor kèm 1-1 riêng trong phòng nhỏ. Học xong bạn ấy tự tay đóng gói Custom Bot viết bài quảng cáo và kịch bản chat Zalo chăm sóc khách hàng. Tiết kiệm ngay 15 triệu tiền thuê agency ngoài mỗi tháng!"
+            </p>
+          </div>
+          <div class="border-t border-amber-500/20 pt-4 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center font-bold text-slate-950 text-sm">
+              ML
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white font-heading">Chị Trần Mai Lan</div>
+              <div class="text-[11px] text-amber-400 font-medium">CEO &bull; Chuỗi Nhà Hàng &amp; F&B (TP.HCM)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3: Hành chính nhân sự & Nghị định 30 -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border-tpai-border flex flex-col justify-between hover:border-tpai-cyan transition shadow-xl">
+          <div>
+            <div class="flex items-center space-x-1 text-amber-400 mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed italic mb-6">
+              "Bộ 50 Prompt chuẩn Nghị định 30 của Thầy Tuấn thực sự là cứu cánh cho dân hành chính văn phòng. Soạn công văn, tờ trình gửi Giám đốc chuẩn từng lề, phông chữ Times New Roman và điều khoản pháp lý trong 2 phút. Không bao giờ bị sếp trả về bắt sửa lại!"
+            </p>
+          </div>
+          <div class="border-t border-white/10 pt-4 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-500 to-tpai-blue flex items-center justify-center font-bold text-white text-sm">
+              HN
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white font-heading">Anh Lê Hoàng Nam</div>
+              <div class="text-[11px] text-emerald-400 font-medium">Trưởng Phòng TCHC &bull; Doanh Nghiệp Vận Tải</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Cam Kết Hoàn Tiền 100% -->
+  <section id="cam-ket" class="py-16 border-t border-white/10 bg-slate-950">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto mb-6">
+        <i data-lucide="shield-check" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white mb-4">
+        CAM KẾT HOÀN TIỀN 100% VÔ ĐIỀU KIỆN
+      </h3>
+      <p class="text-slate-300 text-sm leading-relaxed mb-6">
+        Học xong Buổi 1, nếu Sếp và Trợ lý thấy kiến thức lý thuyết suông, không áp dụng được vào đặc thù doanh nghiệp của mình: Chỉ cần thông báo trước khi Buổi 2 bắt đầu — <b>Học viện AI sẽ hoàn trả 100% học phí ngay trong 24 giờ</b>, không hỏi thêm bất kỳ câu hỏi nào và quý học viên vẫn được giữ lại toàn bộ tài liệu đã nhận!
+      </p>
+      <div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">
+        100% Không Rủi Ro — Đảm Bảo Bằng Danh Dự Của Giảng Viên
+      </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Nhận Vé Trong 3s</div>
+              <div class="text-slate-400 text-xs">SePay Webhook tự động gửi Vé VIP E-Ticket + Lịch Zoom + File 50 Prompt về Email.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+            <div>
+              <div class="font-bold text-white mb-0.5">Mentor Kèm 1-1</div>
+              <div class="text-slate-400 text-xs">Đội ngũ kỹ thuật liên hệ
+    </div>
+  </div>
+</div>
+</section>
+
+  <!-- Section: 8 Câu Hỏi Thường Gặp (FAQ Accordion) -->
+  <section id="faq" class="py-20 border-t border-white/10 bg-tpai-dark relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-14">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tpai-cyan/10 border border-tpai-cyan/30 text-tpai-cyan text-xs font-bold mb-3">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+          <span>GIẢI ĐÁP THẮC MẮC DOANH CHỦ</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-white">
+          8 Câu Hỏi Thường Gặp Trước Khi Tham Gia
+        </h3>
+        <p class="text-slate-400 text-sm mt-3">Mọi thông tin minh bạch, rõ ràng giúp bạn hoàn toàn an tâm khi đăng ký.</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-1">
+          <button onclick="toggleFaq(1)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">1</span>
+              Học Online qua Zoom thì làm sao đảm bảo chất lượng và kèm thực hành 1-1?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-1" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-1" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Lớp học sử dụng hệ thống <b>Zoom VIP Quốc Tế bản quyền</b>, được chia thành các phòng <i>Breakout Rooms</i> riêng biệt. Mỗi học viên hoặc cặp Sếp &amp; Trợ lý đều có một Mentor kỹ thuật kèm riêng, sẵn sàng hỗ trợ trực tiếp qua Ultraview / Anydesk hoặc tính năng chia sẻ màn hình. Thầy Tuấn Phạm sẽ trực tiếp chữa bài và tháo gỡ bài toán thực tế cho từng doanh nghiệp.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-2">
+          <button onclick="toggleFaq(2)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">2</span>
+              Lịch học cụ thể Thứ 7 &amp; Chủ Nhật mấy giờ? Nếu bận có học bù được không?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-2" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-2" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Lịch học chính thức diễn ra vào <b>08:30 — 12:00 Thứ 7 (31/10)</b> và <b>08:30 — 12:00 Chủ Nhật (01/11/2026)</b>. Toàn bộ 2 buổi học đều được ghi hình chất lượng cao 4K và cấp quyền xem lại trọn đời. Nếu Sếp có lịch công tác đột xuất, bạn hoàn toàn có thể xem lại Record, nhắn tin hỏi Mentor hoặc đăng ký học bù vào khóa tiếp theo hoàn toàn miễn phí.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-3">
+          <button onclick="toggleFaq(3)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">3</span>
+              Doanh nghiệp tôi chưa từng dùng AI, tôi và trợ lý không rành công nghệ có học được không?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-3" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-3" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            <b>100% không yêu cầu biết viết code hay lập trình!</b> Khóa học được thiết kế theo phương pháp trực quan <i>No-Code</i> (giao diện kéo thả và ra lệnh bằng tiếng Việt tự nhiên). Chỉ cần bạn biết dùng máy tính cơ bản, gõ phím và mở trình duyệt web là sau 2 buổi có thể tự tay làm chủ toàn bộ hệ thống AI Agents.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-4">
+          <button onclick="toggleFaq(4)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">4</span>
+              Dữ liệu nội bộ công ty mang lên lớp thực hành có bị rò rỉ ra ngoài không?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-4" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-4" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Tuyệt đối an toàn. Thầy Tuấn sẽ hướng dẫn nguyên tắc <b>Zero-Data-Leak</b>: kỹ thuật che mờ và ẩn danh thông tin nhạy cảm trước khi đưa vào AI. Đặc biệt, nền tảng <i>Google NotebookLM</i> doanh nghiệp có chính sách bảo mật cấp cao, cam kết không dùng dữ liệu người dùng để huấn luyện mô hình công cộng.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-5">
+          <button onclick="toggleFaq(5)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">5</span>
+              Tại sao tôi nên mua Vé Cặp Đôi (Sếp &amp; Trợ Lý) thay vì học một mình?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-5" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-5" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Thực tế 95% Sếp đi học một mình về sẽ không có thời gian ngồi gõ prompt và cài đặt; giao việc cho nhân viên thì họ không hiểu tư duy của Sếp. Ngược lại nếu chỉ nhân viên đi học thì Sếp không hiểu, không duyệt tài khoản và sợ lộ dữ liệu. <b>Gói Cặp Đôi</b> là chìa khóa vàng: Sếp nắm Tư Duy &amp; Bảo Mật — Trợ Lý nắm Kỹ Thuật Thực Thi. Học xong là cắm bot chạy tự động ngay tại công ty!
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-6">
+          <button onclick="toggleFaq(6)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">6</span>
+              Công ty tôi có được xuất hóa đơn VAT đào tạo đầy đủ không?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-6" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-6" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            <b>Có!</b> TPAI và Học Viện AI hỗ trợ xuất hóa đơn Giá Trị Gia Tăng (VAT) điện tử hợp lệ về chi phí đào tạo / chuyển giao công nghệ cho doanh nghiệp của bạn theo đúng quy định pháp luật.
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-7">
+          <button onclick="toggleFaq(7)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">7</span>
+              Chính sách cam kết hoàn tiền 100% hoạt động như thế nào?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-7" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-7" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Cam kết hoàn tiền được đảm bảo bằng uy tín của Thầy Tuấn Phạm và Học Viện AI: Sau khi hoàn thành Buổi 1 (Thứ 7), nếu bạn cảm thấy nội dung lý thuyết suông hoặc không mang lại giá trị thực tế cho doanh nghiệp, chỉ cần gửi tin nhắn thông báo trước khi Buổi 2 bắt đầu. Chúng tôi sẽ <b>hoàn lại 100% học phí trong 24 giờ</b>, không hỏi bất kỳ câu hỏi nào và bạn vẫn được giữ lại toàn bộ tài liệu đã nhận!
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-8">
+          <button onclick="toggleFaq(8)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-tpai-cyan/20 text-tpai-cyan text-xs flex items-center justify-center mr-3 font-mono font-bold">8</span>
+              Sau 2 buổi học, chúng tôi có tiếp tục được hỗ trợ không?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-8" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-8" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Bạn được đặc quyền tham gia <b>03 tháng sinh hoạt tại Cộng đồng Doanh Chủ AI VIP</b> để cập nhật các mô hình AI mới nhất hàng tháng, tham gia các buổi Q&amp;A giải đáp kỹ thuật định kỳ. Đặc biệt với Gói Cặp Đôi, bạn còn nhận thêm <b>01 buổi Coaching 1-1 riêng</b> trực tiếp cùng Chuyên gia để hoàn thiện hệ sinh thái AI cho công ty bạn.
+          </div>
+        </div>
+
+        <!-- FAQ 9: Xử lý trực diện nỗi sợ lừa đảo (Objection #1 VN Market) -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-9">
+          <button onclick="toggleFaq(9)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-red-500/20 text-red-400 text-xs flex items-center justify-center mr-3 font-mono font-bold">9</span>
+              Khóa học online này có lừa đảo không? Tại sao tôi phải tin Thầy Tuấn Phạm và Học Viện AI?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-9" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-9" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            Chúng tôi hoàn toàn thấu hiểu sự cẩn trọng của bạn khi mua các khóa đào tạo trên mạng! TPAI minh bạch 100% về mọi thông tin:
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              <li><b>Pháp nhân đào tạo chính quy</b>: Đơn vị chủ quản là <b>Công ty Cổ phần Công nghệ AIVA Group (Học Viện AI)</b>, trụ sở tại Tầng 5, Tòa Golden Field, 24 Nguyễn Cơ Thạch, Mỹ Đình, Hà Nội — đã đào tạo cho hơn 80.000+ học viên và hàng trăm doanh nghiệp tại Việt Nam.</li>
+              <li><b>Giảng viên uy tín công khai</b>: Thầy <b>Tuấn Phạm</b> công khai số điện thoại / Zalo cá nhân <b>0977.138.673</b> sẵn sàng hỗ trợ trực tiếp.</li>
+              <li><b>Tấm khiên hoàn tiền 100%</b>: Học xong Buổi 1 sáng thứ Bảy, nếu thấy lý thuyết suông, bạn chỉ cần báo lại — Học Viện AI hoàn tiền 100% trong 24 giờ không cần lý do và bạn vẫn được giữ lại tài liệu 50 Prompt làm kỷ niệm!</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ 10: So sánh với ChatGPT miễn phí -->
+        <div class="glass-card rounded-xl border border-white/10 overflow-hidden transition" id="faq-item-10">
+          <button onclick="toggleFaq(10)" class="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition">
+            <span class="font-bold text-sm sm:text-base text-white font-heading flex items-center">
+              <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-xs flex items-center justify-center mr-3 font-mono font-bold">10</span>
+              Tôi đang dùng ChatGPT miễn phí rồi, cần gì phải bỏ tiền tham gia khóa học này?
+            </span>
+            <i data-lucide="chevron-down" id="faq-icon-10" class="w-5 h-5 text-tpai-cyan transition-transform duration-300"></i>
+          </button>
+          <div id="faq-answer-10" class="hidden px-5 pb-5 text-xs sm:text-sm text-slate-300 border-t border-white/5 pt-3 leading-relaxed">
+            ChatGPT miễn phí chỉ là công cụ tra cứu thông thường, hay bị "ảo giác" (bịa số liệu), không hiểu luật pháp Việt Nam và dễ làm rò rỉ dữ liệu mật công ty ra bên ngoài. Khóa học của Thầy Tuấn chuyển giao <b>Hệ thống Vận hành Doanh nghiệp Chuyên biệt</b>:
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              <li>Đóng gói <b>Google NotebookLM</b> nạp toàn bộ file hợp đồng, tài liệu kỹ thuật, báo cáo Excel của công ty bảo mật cấp Enterprise, tra cứu chính xác số trang nguồn trong 3 giây.</li>
+              <li>Sở hữu <b>50 Prompt độc quyền</b> soạn thảo công văn, tờ trình chuẩn 100% thể thức <b>Nghị định số 30/2020/NĐ-CP</b> của Chính phủ.</li>
+              <li>Mô hình <b>Cặp Đôi (Sếp &amp; Trợ Lý)</b> cầm tay chỉ việc, học xong là có trợ lý AI chạy tự động mang về cắm vào công ty ngay!</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 6: Form Đăng Ký Trực Tiếp & Thu Leads -->
+  <section id="dang-ky" class="py-20 border-t border-white/10 bg-tpai-navy/40 relative">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold mb-3">
+          <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+          <span>ƯU ĐÃI CÒN HIỆU LỰC TRONG 24H TỚI</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+          Đăng Ký Khóa Huấn Luyện AI FOR BUSINESS
+        </h3>
+        <p class="text-slate-400 text-sm mt-2">Vui lòng điền thông tin để giữ chỗ và nhận mã thanh toán VietQR tự động.</p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border-tpai-border shadow-2xl">
+        <form id="orderForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+          
+          <!-- Package Selector -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">1. Chọn Gói Đào Tạo</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <label class="flex items-center p-3 rounded-xl border border-white/10 cursor-pointer bg-slate-900/60 hover:border-tpai-cyan transition" id="lbl-combo">
+                <input type="radio" name="package_choice" value="combo_9900k" checked onchange="updateSelectedPackage('combo_9900k')" class="text-tpai-amber focus:ring-0">
+                <div class="ml-2.5">
+                  <div class="text-xs font-bold text-white" id="lblComboPrice">Cặp Đôi 9.9M</div>
+                  <div class="text-[10px] text-amber-400 font-semibold">Khuyên Dùng</div>
+                </div>
+              </label>
+
+              <label class="flex items-center p-3 rounded-xl border border-white/10 cursor-pointer bg-slate-900/60 hover:border-tpai-cyan transition" id="lbl-single">
+                <input type="radio" name="package_choice" value="single_6000k" onchange="updateSelectedPackage('single_6000k')" class="text-tpai-cyan focus:ring-0">
+                <div class="ml-2.5">
+                  <div class="text-xs font-bold text-white" id="lblSinglePrice">Cá Nhân 6M</div>
+                  <div class="text-[10px] text-slate-400">01 Người</div>
+                </div>
+              </label>
+
+              <label class="flex items-center p-3 rounded-xl border border-white/10 cursor-pointer bg-slate-900/60 hover:border-tpai-cyan transition" id="lbl-inhouse">
+                <input type="radio" name="package_choice" value="inhouse_28000k" onchange="updateSelectedPackage('inhouse_28000k')" class="text-tpai-cyan focus:ring-0">
+                <div class="ml-2.5">
+                  <div class="text-xs font-bold text-white" id="lblInhousePrice">In-House 28M</div>
+                  <div class="text-[10px] text-slate-400">10-20 Người</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Full Name -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">2. Họ Và Tên <span class="text-red-400">*</span></label>
+            <input type="text" id="fullName" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+          </div>
+
+          <!-- Phone & Email -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">3. Số Điện Thoại / Zalo <span class="text-red-400">*</span></label>
+              <input type="tel" id="phoneNumber" required placeholder="09xx xxx xxx" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">4. Email Nhận Tài Liệu</label>
+              <input type="email" id="email" placeholder="email@congty.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+            </div>
+          </div>
+
+          <!-- Company Name -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">5. Tên Doanh Nghiệp / Lĩnh Vực Hoạt Động</label>
+            <input type="text" id="companyName" placeholder="Ví dụ: Công ty TNHH SX & TM Minh Phát (Sản xuất gốm sứ)" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6. Câu hỏi hoặc Bài toán muốn giải quyết tại lớp</label>
+            <textarea id="notes" rows="2" placeholder="Ghi chú thêm về quy trình hiện tại bạn muốn tự động hóa..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm"></textarea>
+          </div>
+
+          <!-- Live Price Display -->
+          <div class="p-4 rounded-xl bg-slate-950/80 border border-white/10 flex items-center justify-between">
+            <span class="text-xs text-slate-400">Số tiền thanh toán:</span>
+            <span id="displayAmount" class="text-2xl font-extrabold text-gradient-amber">9.900.000 VNĐ</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="btnSubmit" class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-extrabold text-base shadow-xl glow-amber hover:brightness-110 transition flex items-center justify-center space-x-2">
+            <span id="btnText">XÁC NHẬN ĐĂNG KÝ & THANH TOÁN VIETQR</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+
+          <p class="text-center text-[11px] text-slate-400">
+            Thông tin của bạn được bảo mật tuyệt đối theo chính sách của TPAI.
+          </p>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VietQR Payment Modal -->
+  <div id="paymentModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full rounded-2xl p-6 sm:p-8 border-tpai-cyan/40 shadow-2xl relative text-center">
+      
+      <!-- Close Button -->
+      <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Step 1: Active QR Screen -->
+      <div id="modalActiveScreen">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold mb-3 border border-emerald-500/30">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>QUÉT MÃ VIETQR QUA APP NGÂN HÀNG</span>
+        </div>
+
+        <h3 class="text-xl font-bold font-heading text-white mb-1">Thanh Toán Khóa Học TPAI</h3>
+        <p class="text-xs text-slate-400 mb-4">Mã đơn hàng: <b id="modalOrderCode" class="text-tpai-cyan font-mono text-sm">TPAI-XXXXXX</b></p>
+
+        <!-- Dynamic VietQR Image -->
+        <div class="relative inline-block bg-white p-3 rounded-2xl shadow-xl mx-auto mb-4 border-2 border-tpai-cyan/50">
+          <img id="vietqrImage" src="" alt="VietQR Thanh Toán" class="w-56 h-56 sm:w-64 sm:h-64 object-contain">
+        </div>
+
+        <!-- Bank Details & Copy Helpers -->
+        <div class="space-y-2 text-xs text-left bg-slate-900/90 p-4 rounded-xl border border-white/10 mb-4">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Ngân hàng:</span>
+            <span id="modalBankName" class="font-bold text-white">VietinBank (Công Thương)</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Số tài khoản:</span>
+            <div class="flex items-center space-x-1.5">
+              <span id="modalAccountNo" class="font-bold font-mono text-white text-sm">104887981320</span>
+              <button onclick="copyAccountNo()" class="text-tpai-cyan hover:underline text-[11px] font-semibold">Copy</button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Chủ tài khoản:</span>
+            <span id="modalAccountName" class="font-bold text-white">PHAM QUOC TUAN</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Số tiền:</span>
+            <div class="flex items-center space-x-1.5">
+              <span id="modalAmountText" class="font-bold text-amber-400 text-sm">9.900.000 VNĐ</span>
+              <button id="btnCopyAmount" onclick="copyAmount()" class="text-tpai-cyan hover:underline text-[11px] font-semibold">Copy</button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-white/10">
+            <span class="text-slate-400">Nội dung CK:</span>
+            <div class="flex items-center space-x-1.5">
+              <span id="modalTransferContent" class="font-bold font-mono text-tpai-cyan text-sm">TPAI-XXXXXX</span>
+              <button onclick="copyContent()" class="text-tpai-cyan hover:underline text-[11px] font-semibold">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polling Indicator & Manual Check Button -->
+        <div class="space-y-2.5 mt-4">
+          <div class="flex items-center justify-center space-x-2 text-xs text-slate-400">
+            <i data-lucide="loader-2" class="w-4 h-4 text-tpai-cyan animate-spin"></i>
+            <span>Hệ thống tự động kích hoạt ngay khi nhận được tiền...</span>
+          </div>
+
+          <button type="button" onclick="manualCheckPayment()" id="btnManualCheck" class="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-tpai-cyan text-xs font-bold border border-tpai-cyan/30 flex items-center justify-center space-x-2 transition">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="manualCheckIcon"></i>
+            <span>Tôi Đã Chuyển Khoản &rarr; Kiểm Tra Ngay</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Payment Success Screen (Hidden by default) -->
+      <div id="modalSuccessScreen" class="hidden py-6 space-y-4">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-2 border border-emerald-500/40">
+          <i data-lucide="check-check" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-2xl font-bold font-heading text-white">THANH TOÁN THÀNH CÔNG!</h3>
+        <p class="text-slate-300 text-sm">
+          Chúc mừng bạn đã hoàn tất đăng ký khóa học <b class="text-tpai-cyan">AI FOR BUSINESS</b>. Ban tổ chức đã lưu thông tin và cấp vé điện tử VIP cho bạn ngay lập tức!
+        </p>
+        <div class="p-4 rounded-xl bg-slate-900 border border-white/10 text-xs text-left space-y-1">
+          <div>Khách hàng: <b id="successCustomerName" class="text-white"></b></div>
+          <div>Mã giao dịch: <b id="successOrderCode" class="text-tpai-cyan font-mono"></b></div>
+        </div>
+        <a id="btnGoThankYou" href="/cam-on.html" class="w-full inline-flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-sm shadow-xl glow-amber hover:brightness-110 transition">
+          <i data-lucide="ticket" class="w-4 h-4"></i>
+          <span>XEM VÉ ĐIỆN TỬ VIP &amp; LỊCH HỌC ZOOM &rarr;</span>
+        </a>
+        <a href="https://zalo.me/0977138673" target="_blank" class="w-full inline-flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-blue-600 text-white font-bold text-sm shadow hover:bg-blue-500 transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Tham Gia Nhóm Zalo Học Viên VIP</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal 1: Lead Magnet Quick Opt-in Modal -->
+  <div id="leadMagnetModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card-amber max-w-lg w-full rounded-2xl p-6 sm:p-8 border-2 border-amber-500/40 shadow-2xl relative text-left">
+      <button onclick="closeLeadMagnetModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <div class="mb-5 text-center">
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold mb-2 border border-amber-500/30">
+          <i data-lucide="gift" class="w-3.5 h-3.5"></i>
+          <span>QUÀ TẶNG MIỄN PHÍ 100% (0Đ)</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-extrabold font-heading text-white">
+          Nhận Trọn Bộ 50 Prompt Master & Cẩm Nang NĐ 30
+        </h3>
+        <p class="text-xs text-slate-400 mt-1.5">
+          Điền thông tin để tải file Word (.docx) và PDF Ebook trực tiếp ngay:
+        </p>
+      </div>
+
+      <form id="leadMagnetModalForm" onsubmit="handleLeadMagnetSubmit(event, 'modal')" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Họ Và Tên <span class="text-red-400">*</span></label>
+          <input type="text" id="magnetModalName" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Số Điện Thoại / Zalo <span class="text-red-400">*</span></label>
+          <input type="tel" id="magnetModalPhone" required placeholder="09xx xxx xxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Email Nhận Tài Liệu <span class="text-red-400">*</span></label>
+          <input type="email" id="magnetModalEmail" required placeholder="email@congty.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Doanh Nghiệp / Lĩnh Vực</label>
+          <input type="text" id="magnetModalCompany" placeholder="Ví dụ: Công ty TNHH ABC..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-tpai-cyan text-sm">
+        </div>
+
+        <button type="submit" id="btnMagnetModalSubmit" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-tpai-cyan via-tpai-blue to-tpai-cyan text-slate-950 font-extrabold text-sm shadow-xl glow-cyan hover:brightness-110 transition flex items-center justify-center space-x-2">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span id="btnMagnetModalText">TẢI VỀ MIỄN PHÍ TRỌN BỘ FILE WORD & PDF</span>
+        </button>
+
+        <p class="text-center text-[11px] text-slate-400 pt-1">
+          ✓ Mở link tải tức thì &bull; Đồng thời gửi email sao lưu
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Lead Magnet Success & Direct Delivery Screen -->
+  <div id="leadMagnetSuccessModal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-card max-w-lg w-full rounded-2xl p-6 sm:p-8 border-tpai-cyan/40 shadow-2xl relative text-center my-8">
+      <button onclick="closeLeadMagnetSuccessModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 mx-auto mb-4 animate-bounce">
+        <i data-lucide="check" class="w-8 h-8"></i>
+      </div>
+
+      <h3 class="text-2xl font-extrabold font-heading text-white mb-2">ĐĂNG KÝ THÀNH CÔNG!</h3>
+      <p class="text-xs sm:text-sm text-slate-300 mb-6">
+        Chào mừng <b id="leadSuccessCustomerName" class="text-tpai-cyan font-bold">Bạn</b>! Hệ thống đã ghi nhận và mở quyền truy cập trọn bộ tài liệu độc quyền cho bạn:
+      </p>
+
+      <!-- Instant Download Box -->
+      <div class="bg-slate-900/90 border border-tpai-cyan/30 rounded-xl p-4 text-left space-y-3 mb-5">
+        <div class="text-xs font-bold text-tpai-cyan uppercase tracking-wider flex items-center">
+          <i data-lucide="download-cloud" class="w-4 h-4 mr-1.5"></i>
+          <span>Bấm Để Tải Về Trực Tiếp:</span>
+        </div>
+
+        <a href="/assets/50-prompt-master-nghi-dinh-30.docx" download="50-Prompt-Master-Nghi-Dinh-30-TPAI.docx" class="flex items-center justify-between p-3 rounded-lg bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-white transition group">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+              DOCX
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white group-hover:text-tpai-cyan transition">File Word Chuẩn Nghị Định 30</div>
+              <div class="text-[10px] text-slate-400">103 KB &bull; Sẵn mẫu 6 phòng ban</div>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-tpai-cyan flex items-center">
+            Tải <i data-lucide="arrow-down-to-line" class="w-3.5 h-3.5 ml-1"></i>
+          </span>
+        </a>
+
+        <a href="/assets/cam-nang-50-prompt-tpai.pdf" download="Cam-Nang-50-Prompt-TPAI.pdf" class="flex items-center justify-between p-3 rounded-lg bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600/30 text-white transition group">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+              PDF
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white group-hover:text-purple-300 transition">Cẩm Nang Ebook Trực Quan</div>
+              <div class="text-[10px] text-slate-400">1.88 MB &bull; Framework R-C-T-C-F</div>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-purple-300 flex items-center">
+            Tải <i data-lucide="arrow-down-to-line" class="w-3.5 h-3.5 ml-1"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Zalo VIP Community Button -->
+      <a href="https://zalo.me/0977138673" target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-blue-600 text-white font-bold text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition flex items-center justify-center space-x-2 mb-4">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>VÀO NHÓM ZALO DOANH CHỦ AI VIP (GIẢI ĐÁP 24/7)</span>
+      </a>
+
+      <!-- Bridge to Core Offer 9.9M -->
+      <div class="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-tpai-navy to-amber-500/10 border border-amber-500/30 text-left">
+        <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center">
+          <i data-lucide="zap" class="w-3.5 h-3.5 mr-1"></i>
+          <span>ƯU ĐÃI ĐỘC QUYỀN HÔM NAY</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+          Muốn xây dựng trọn vẹn <b>Hệ thống Trợ lý AI tự động</b> cho công ty? Tham gia ngay Khóa Huấn Luyện 2 Buổi: <b>Gói Cặp Đôi Sếp & Trợ Lý</b> (9.9M).
+        </p>
+        <button onclick="closeLeadMagnetSuccessModal(); document.getElementById('bang-gia').scrollIntoView({ behavior: 'smooth' });" class="w-full py-2.5 px-3 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-xs shadow hover:brightness-110 transition flex items-center justify-center space-x-1.5">
+          <span>Xem Chi Tiết Khóa Học 2 Buổi (9.9M)</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-tpai-dark py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between">
+      <div class="space-y-1 mb-6 sm:mb-0">
+        <img src="/assets/tpai-logo.png" alt="TPAI Logo" class="h-10 w-auto mx-auto sm:mx-0 object-contain">
+        <div class="text-xs text-slate-300 font-bold">
+          Tuấn Phạm — Học Viện AI
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 space-y-1 text-center sm:text-right">
+        <div>Hotline: <a href="tel:0977138673" class="text-slate-300 hover:text-white font-medium">0977 138 673</a> | Website: <a href="https://hocvienai.com" target="_blank" class="text-slate-300 hover:text-white">hocvienai.com</a></div>
+        <div>Tòa nhà Học Viện AI — Bản quyền thuộc về TPAI 2026.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Supabase Lead Capture & VietQR Modal Logic -->
+  </div>
+
+  <script>
+    // Supabase Config
+    const SUPABASE_URL = 'https://yvwsitkgpujeqlgeiuge.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2d3NpdGtncHVqZXFsZ2VpdWdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYwMTgsImV4cCI6MjEwNjUwMjAxOH0.4DXwsOakGUbkLF8JUQzV8xkQILFj0_OW973y4KnjSSA';
+
+    let pricingConfig = {
+      price_combo: 9900000,
+      price_single: 6000000,
+      price_inhouse: 28000000,
+      bank_id: 'vietinbank',
+      bank_name: 'VietinBank (Công Thương)',
+      account_no: '104887981320',
+      account_name: 'PHAM QUOC TUAN'
+    };
+
+    let currentSelectedPackage = 'combo_9900k';
+    let currentAmount = 9900000;
+    let currentPackageName = 'Gói Cặp Đôi (9.9M)';
+    let currentOrderCode = '';
+    let pollInterval = null;
+
+    // Load dynamic settings from Supabase
+    async function loadDynamicSettings() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/tpai_settings?key=eq.pricing_and_bank&select=value`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const rows = await res.json();
+        if (rows && rows[0] && rows[0].value) {
+          pricingConfig = Object.assign(pricingConfig, rows[0].value);
+          applyDynamicSettings();
+        }
+      } catch (err) {
+        console.warn('Fallback to default settings:', err);
+      }
+    }
+
+    function applyDynamicSettings() {
+      if (document.getElementById('priceCardCombo')) {
+        document.getElementById('priceCardCombo').innerText = formatVND(pricingConfig.price_combo);
+      }
+      if (document.getElementById('priceCardSingle')) {
+        document.getElementById('priceCardSingle').innerText = formatVND(pricingConfig.price_single);
+      }
+      if (document.getElementById('priceCardInhouse')) {
+        document.getElementById('priceCardInhouse').innerText = formatVND(pricingConfig.price_inhouse);
+      }
+      if (document.getElementById('lblComboPrice')) {
+        document.getElementById('lblComboPrice').innerText = 'Cặp Đôi ' + (pricingConfig.price_combo / 1000000).toFixed(1).replace('.0','') + 'M';
+      }
+      if (document.getElementById('lblSinglePrice')) {
+        document.getElementById('lblSinglePrice').innerText = 'Cá Nhân ' + (pricingConfig.price_single / 1000000).toFixed(1).replace('.0','') + 'M';
+      }
+      if (document.getElementById('lblInhousePrice')) {
+        document.getElementById('lblInhousePrice').innerText = 'In-House ' + (pricingConfig.price_inhouse / 1000000).toFixed(1).replace('.0','') + 'M';
+      }
+      if (document.getElementById('modalBankName')) {
+        document.getElementById('modalBankName').innerText = pricingConfig.bank_name;
+      }
+      if (document.getElementById('modalAccountNo')) {
+        document.getElementById('modalAccountNo').innerText = pricingConfig.account_no;
+      }
+      if (document.getElementById('modalAccountName')) {
+        document.getElementById('modalAccountName').innerText = pricingConfig.account_name;
+      }
+      updateSelectedPackage(currentSelectedPackage);
+    }
+
+    // Helper: Select Package
+    function selectPackage(pkg) {
+      currentSelectedPackage = pkg;
+      updateSelectedPackage(pkg);
+      const radio = document.querySelector(`input[name="package_choice"][value="${pkg}"]`);
+      if (radio) radio.checked = true;
+      document.getElementById('dang-ky').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateSelectedPackage(pkg) {
+      currentSelectedPackage = pkg;
+      if (pkg === 'combo_9900k') {
+        currentAmount = pricingConfig.price_combo;
+        currentPackageName = 'Gói Cặp Đôi (' + (pricingConfig.price_combo / 1000000).toFixed(1).replace('.0','') + 'M)';
+      } else if (pkg === 'single_6000k') {
+        currentAmount = pricingConfig.price_single;
+        currentPackageName = 'Vé Cá Nhân (' + (pricingConfig.price_single / 1000000).toFixed(1).replace('.0','') + 'M)';
+      } else if (pkg === 'inhouse_28000k') {
+        currentAmount = pricingConfig.price_inhouse;
+        currentPackageName = 'Gói In-House (' + (pricingConfig.price_inhouse / 1000000).toFixed(1).replace('.0','') + 'M)';
+      }
+      if (document.getElementById('displayAmount')) {
+        document.getElementById('displayAmount').innerText = formatVND(currentAmount);
+      }
+    }
+
+    function formatVND(num) {
+      return new Intl.NumberFormat('vi-VN').format(num) + ' VNĐ';
+    }
+
+    // Submit Order Form
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      const btnText = document.getElementById('btnText');
+      btn.disabled = true;
+      btnText.innerText = 'ĐANG TẠO ĐƠN HÀNG...';
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phoneNumber').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const company = document.getElementById('companyName').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+
+      // Generate order code (e.g. TPAI-829104)
+      const randomSixDigit = Math.floor(100000 + Math.random() * 900000);
+      currentOrderCode = `TPAI-${randomSixDigit}`;
+
+      try {
+        // 1. Insert into tpai_leads
+        const leadPayload = {
+          full_name: fullName,
+          phone: phone,
+          email: email || null,
+          company_name: company || null,
+          package_selected: currentSelectedPackage,
+          amount_due: currentAmount,
+          order_code: currentOrderCode,
+          notes: notes || null,
+          status: 'new',
+          payment_status: 'pending'
+        };
+
+        const leadRes = await fetch(`${SUPABASE_URL}/rest/v1/tpai_leads`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(leadPayload)
+        });
+
+        const createdLeads = await leadRes.json();
+        const leadId = createdLeads && createdLeads[0] ? createdLeads[0].id : null;
+
+        // 2. Insert into tpai_orders
+        const orderPayload = {
+          lead_id: leadId,
+          order_code: currentOrderCode,
+          customer_name: fullName,
+          customer_phone: phone,
+          customer_email: email || null,
+          package_name: currentPackageName,
+          amount: currentAmount,
+          payment_method: 'vietqr',
+          status: 'pending'
+        };
+
+        await fetch(`${SUPABASE_URL}/rest/v1/tpai_orders`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(orderPayload)
+        });
+
+        // Save order to localStorage for instant recognition on /cam-on
+        try {
+          localStorage.setItem('tpai_latest_order', JSON.stringify({
+            fullName: fullName,
+            phone: phone,
+            email: email,
+            orderCode: currentOrderCode,
+            packageSelected: currentSelectedPackage,
+            amount: currentAmount
+          }));
+        } catch(e) {}
+
+        // Auto-enroll contact into Brevo CRM & Automation List immediately
+        if (email) {
+          fetch('/api/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              customerName: fullName,
+              customerEmail: email,
+              customerPhone: phone,
+              orderCode: currentOrderCode,
+              packageName: currentPackageName,
+              enrollOnly: true
+            })
+          }).catch(bErr => console.warn('Brevo background enroll warning:', bErr));
+        }
+
+        // 3. Open VietQR Payment Modal
+        showPaymentModal(fullName, currentOrderCode, currentAmount);
+
+      } catch (err) {
+        console.error('Error submitting order:', err);
+        alert('Có lỗi nhỏ khi tạo đơn hàng. Vui lòng liên hệ Hotline 0977 138 673 để được hỗ trợ!');
+      } finally {
+        btn.disabled = false;
+        btnText.innerText = 'XÁC NHẬN ĐĂNG KÝ & THANH TOÁN VIETQR';
+      }
+    }
+
+    function showPaymentModal(customerName, orderCode, amount) {
+      // SePay requires VietinBank transactions to start with 'SEVQR'
+      const isVietin = (pricingConfig.bank_id || '').toLowerCase().includes('vietin');
+      const transferContent = isVietin ? `SEVQR ${orderCode}` : orderCode;
+
+      document.getElementById('modalOrderCode').innerText = orderCode;
+      document.getElementById('modalAmountText').innerText = formatVND(amount);
+      document.getElementById('modalTransferContent').innerText = transferContent;
+
+      // VietQR image URL (VietinBank / Dynamic from CRM settings)
+      const bankId = pricingConfig.bank_id || 'vietinbank';
+      const accountNo = pricingConfig.account_no || '104887981320';
+      const accountName = encodeURIComponent(pricingConfig.account_name || 'PHAM QUOC TUAN');
+      const addInfo = encodeURIComponent(transferContent);
+      const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-compact2.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+      
+      document.getElementById('vietqrImage').src = qrUrl;
+      document.getElementById('modalActiveScreen').classList.remove('hidden');
+      document.getElementById('modalSuccessScreen').classList.add('hidden');
+      document.getElementById('paymentModal').classList.remove('hidden');
+
+      // Start Polling Supabase for order confirmation
+      startPaymentPolling(orderCode, customerName);
+    }
+
+    function closePaymentModal() {
+      if (pollInterval) clearInterval(pollInterval);
+      document.getElementById('paymentModal').classList.add('hidden');
+    }
+
+    let currentPollingOrderCode = '';
+    let currentPollingCustomerName = '';
+
+    function startPaymentPolling(orderCode, customerName) {
+      currentPollingOrderCode = orderCode;
+      currentPollingCustomerName = customerName;
+      if (pollInterval) clearInterval(pollInterval);
+      
+      pollInterval = setInterval(async () => {
+        await checkPaymentStatus(orderCode, customerName, false);
+      }, 2000);
+    }
+
+    async function checkPaymentStatus(orderCode, customerName, isManual = false) {
+      const manualBtn = document.getElementById('btnManualCheck');
+      const manualIcon = document.getElementById('manualCheckIcon');
+      if (isManual && manualIcon) manualIcon.classList.add('animate-spin');
+
+      try {
+        // 1. Primary check: tpai_leads (bypasses browser caching with cache: 'no-store')
+        const resLead = await fetch(`${SUPABASE_URL}/rest/v1/tpai_leads?order_code=eq.${encodeURIComponent(orderCode)}&select=payment_status,status`, {
+          cache: 'no-store',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Cache-Control': 'no-cache, no-store, must-revalidate'
+          }
+        });
+        const leads = await resLead.json();
+        if (Array.isArray(leads) && leads[0] && (leads[0].payment_status === 'paid' || leads[0].status === 'paid')) {
+          console.log('[Payment Confirmed via leads table!]', leads[0]);
+          if (pollInterval) clearInterval(pollInterval);
+          onPaymentSuccess(customerName, orderCode);
+          return true;
+        }
+
+        // 2. Secondary check: tpai_orders
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/tpai_orders?order_code=eq.${encodeURIComponent(orderCode)}&select=status`, {
+          cache: 'no-store',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Cache-Control': 'no-cache, no-store, must-revalidate'
+          }
+        });
+        const data = await res.json();
+        if (Array.isArray(data) && data[0] && (data[0].status === 'completed' || data[0].status === 'paid')) {
+          console.log('[Payment Confirmed via orders table!]', data[0]);
+          if (pollInterval) clearInterval(pollInterval);
+          onPaymentSuccess(customerName, orderCode);
+          return true;
+        }
+
+        if (isManual) {
+          alert('Hệ thống chưa nhận được tín hiệu thanh toán từ ngân hàng cho đơn ' + orderCode + '. Nếu bạn vừa chuyển khoản, vui lòng chờ vài giây để hệ thống ngân hàng đồng bộ nhé!');
+        }
+        return false;
+      } catch (err) {
+        console.error('Check payment error:', err);
+        return false;
+      } finally {
+        if (isManual && manualIcon) manualIcon.classList.remove('animate-spin');
+      }
+    }
+
+    function manualCheckPayment() {
+      if (currentPollingOrderCode) {
+        checkPaymentStatus(currentPollingOrderCode, currentPollingCustomerName, true);
+      }
+    }
+
+    function onPaymentSuccess(customerName, orderCode) {
+      document.getElementById('modalActiveScreen').classList.add('hidden');
+      document.getElementById('modalSuccessScreen').classList.remove('hidden');
+      document.getElementById('successCustomerName').innerText = customerName;
+      document.getElementById('successOrderCode').innerText = orderCode;
+
+      const phoneInput = document.getElementById('phoneNumber');
+      const currentPhone = phoneInput ? phoneInput.value.trim() : '';
+      const thankYouUrl = `/cam-on.html?order=${encodeURIComponent(orderCode)}&name=${encodeURIComponent(customerName)}&phone=${encodeURIComponent(currentPhone)}&package=${encodeURIComponent(selectedPackage)}`;
+      
+      const btnGoThankYou = document.getElementById('btnGoThankYou');
+      if (btnGoThankYou) {
+        btnGoThankYou.href = thankYouUrl;
+      }
+
+      if (window.lucide) lucide.createIcons();
+
+      // Trigger Confetti Celebration
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.5 }
+        });
+      }
+
+      // Auto redirect after 3.5 seconds to VIP onboarding ticket
+      setTimeout(() => {
+        window.location.href = thankYouUrl;
+      }, 3500);
+    }
+
+    function copyText(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        alert('Đã sao chép: ' + str);
+      });
+    }
+
+    function copyAccountNo() {
+      copyText(pricingConfig.account_no || '104887981320');
+    }
+
+    function copyAmount() {
+      copyText(currentAmount.toString());
+    }
+
+    function copyContent() {
+      const isVietin = (pricingConfig.bank_id || '').toLowerCase().includes('vietin');
+      const transferContent = isVietin ? `SEVQR ${currentOrderCode}` : currentOrderCode;
+      copyText(transferContent);
+    }
+
+    // Lead Magnet Modal Controls
+    function openLeadMagnetModal() {
+      const modal = document.getElementById('leadMagnetModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function closeLeadMagnetModal() {
+      const modal = document.getElementById('leadMagnetModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function closeLeadMagnetSuccessModal() {
+      const modal = document.getElementById('leadMagnetSuccessModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Handle Lead Magnet Form Submission (Inline or Modal)
+    async function handleLeadMagnetSubmit(e, source) {
+      e.preventDefault();
+      
+      const isModal = source === 'modal';
+      const btn = isModal ? document.getElementById('btnMagnetModalSubmit') : document.getElementById('btnMagnetInlineSubmit');
+      const btnText = isModal ? document.getElementById('btnMagnetModalText') : document.getElementById('btnMagnetInlineText');
+      const originalText = btnText ? btnText.innerText : 'TẢI VỀ MIỄN PHÍ TRỌN BỘ FILE WORD & PDF';
+      
+      if (btn) btn.disabled = true;
+      if (btnText) btnText.innerText = 'ĐANG XỬ LÝ & MỞ LINK TẢI...';
+
+      const fullName = (isModal ? document.getElementById('magnetModalName').value : document.getElementById('magnetInlineName').value).trim();
+      const phone = (isModal ? document.getElementById('magnetModalPhone').value : document.getElementById('magnetInlinePhone').value).trim();
+      const email = (isModal ? document.getElementById('magnetModalEmail').value : document.getElementById('magnetInlineEmail').value).trim();
+      const company = (isModal ? document.getElementById('magnetModalCompany').value : document.getElementById('magnetInlineCompany').value).trim();
+
+      const randomSixDigit = Math.floor(100000 + Math.random() * 900000);
+      const leadMagnetCode = `TPAI-LM-${randomSixDigit}`;
+
+      try {
+        // 1. Insert into Supabase tpai_leads (package_selected: 'lead_magnet_50prompt')
+        const leadPayload = {
+          full_name: fullName,
+          phone: phone,
+          email: email || null,
+          company_name: company || null,
+          package_selected: 'lead_magnet_50prompt',
+          amount_due: 0,
+          amount_paid: 0,
+          order_code: leadMagnetCode,
+          notes: `Khách nhận Cẩm nang 50 Prompt qua form ${source === 'modal' ? 'Modal Pop-up' : 'Section 1.5 Trang Chủ'}`,
+          status: 'new',
+          payment_status: 'pending'
+        };
+
+        await fetch(`${SUPABASE_URL}/rest/v1/tpai_leads`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(leadPayload)
+        });
+
+        // 2. Trigger asynchronous confirmation email via Resend
+        if (email) {
+          fetch('/api/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              customerName: fullName,
+              customerEmail: email,
+              customerPhone: phone,
+              orderCode: leadMagnetCode,
+              packageName: 'lead_magnet_50prompt',
+              type: 'lead_magnet',
+              amount: 0
+            })
+          }).catch(mailErr => console.warn('Resend mail error:', mailErr));
+        }
+
+        // 3. Close input modal if open
+        closeLeadMagnetModal();
+
+        // 4. Open Success & Instant Download Modal
+        const successNameEl = document.getElementById('leadSuccessCustomerName');
+        if (successNameEl) successNameEl.innerText = fullName || 'Bạn';
+        const successModal = document.getElementById('leadMagnetSuccessModal');
+        if (successModal) {
+          successModal.classList.remove('hidden');
+          if (window.lucide) lucide.createIcons();
+        }
+
+        // Trigger celebratory confetti
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 }
+          });
+        }
+
+      } catch (err) {
+        console.error('Lead magnet registration error:', err);
+        // Fallback: still show download modal so user is not blocked
+        const successNameEl = document.getElementById('leadSuccessCustomerName');
+        if (successNameEl) successNameEl.innerText = fullName || 'Bạn';
+        const successModal = document.getElementById('leadMagnetSuccessModal');
+        if (successModal) {
+          successModal.classList.remove('hidden');
+          if (window.lucide) lucide.createIcons();
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.innerText = originalText;
+      }
+    }
+
+    // Video Play Toggle
+    function togglePlayHeroVideo() {
+      const vid = document.getElementById('heroVideo');
+      const overlay = document.getElementById('videoPlayOverlay');
+      if (!vid) return;
+      if (vid.paused) {
+        vid.play();
+        vid.controls = true;
+        if (overlay) overlay.classList.add('hidden');
+      } else {
+        vid.pause();
+        if (overlay) overlay.classList.remove('hidden');
+      }
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(id) {
+      const answer = document.getElementById(`faq-answer-${id}`);
+      const icon = document.getElementById(`faq-icon-${id}`);
+      if (!answer) return;
+      const isHidden = answer.classList.contains('hidden');
+      
+      // Close all other FAQs for clean reading
+      for (let i = 1; i <= 10; i++) {
+        const a = document.getElementById(`faq-answer-${i}`);
+        const ic = document.getElementById(`faq-icon-${i}`);
+        if (a && i !== id) a.classList.add('hidden');
+        if (ic && i !== id) ic.classList.remove('rotate-180');
+      }
+
+      if (isHidden) {
+        answer.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+      } else {
+        answer.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+      }
+    }
+
+    // Realtime Countdown to Saturday 31/10/2026 08:30:00 (GMT+7)
+    function startCountdown() {
+      const targetDate = new Date('2026-10-31T08:30:00+07:00').getTime();
+      
+      function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          const elD = document.getElementById('cd-days');
+          const elH = document.getElementById('cd-hours');
+          const elM = document.getElementById('cd-minutes');
+          const elS = document.getElementById('cd-seconds');
+          if (elD) elD.textContent = '00';
+          if (elH) elH.textContent = '00';
+          if (elM) elM.textContent = '00';
+          if (elS) elS.textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const elDays = document.getElementById('cd-days');
+        const elHours = document.getElementById('cd-hours');
+        const elMinutes = document.getElementById('cd-minutes');
+        const elSeconds = document.getElementById('cd-seconds');
+
+        if (elDays) elDays.textContent = String(days).padStart(2, '0');
+        if (elHours) elHours.textContent = String(hours).padStart(2, '0');
+        if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
+        if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    // Register Service Worker for PWA (Installable on mobile)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW register fail:', err));
+      });
+    }
+
+    // Initialize Lucide Icons & Dynamic Settings
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadDynamicSettings();
+      startCountdown();
+
+      // Video play/pause overlay event listeners
+      const heroVid = document.getElementById('heroVideo');
+      const heroOverlay = document.getElementById('videoPlayOverlay');
+      if (heroVid && heroOverlay) {
+        heroVid.addEventListener('play', () => heroOverlay.classList.add('hidden'));
+        heroVid.addEventListener('pause', () => heroOverlay.classList.remove('hidden'));
+        heroVid.addEventListener('ended', () => heroOverlay.classList.remove('hidden'));
+      }
+    });
+  </script>
+
+
+  <!-- Bottom Sticky Bar Social Proof (Chuyển đổi 1 chạm trên Mobile & Desktop) -->
+  <div id="stickyBottomBar" class="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-amber-500/40 backdrop-blur-md py-2.5 px-4 shadow-[0_-10px_25px_rgba(0,0,0,0.5)] transition-transform duration-300">
+    <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-3">
+      <!-- Left: Realtime social proof -->
+      <div class="flex items-center space-x-2 text-xs sm:text-sm text-slate-200">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+        <span class="font-bold text-white hidden sm:inline">🔴 KHAI GIẢNG K01 (31/10):</span>
+        <span>Đã có <b>27/30 doanh nghiệp</b> giữ chỗ &bull; <span class="text-amber-400 font-bold">Chỉ còn 3 suất Early-Bird!</span></span>
+      </div>
+
+      <!-- Right: Action buttons -->
+      <div class="flex items-center space-x-2 shrink-0">
+        <a href="#dang-ky" onclick="selectPackage('combo_9900k')" class="inline-flex items-center space-x-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold px-3.5 sm:px-4 py-2 rounded-xl shadow-lg glow-amber hover:brightness-110 transition text-xs sm:text-sm">
+          <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
+          <span>Giữ Chỗ Gói Cặp Đôi (9.9M)</span>
+        </a>
+        <button onclick="document.getElementById('stickyBottomBar').style.display='none'" class="text-slate-400 hover:text-white p-1 transition" title="Đóng thanh thông báo">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+name: TPAI 13-Agent Auto-Publish Cron (06:30 & 18:30 VN)
+
+on:
+  schedule:
+    # 06:30 sáng giờ Việt Nam (UTC+7 = 23:30 UTC hôm trước)
+    - cron: '30 23 * * *'
+    # 18:30 chiều giờ Việt Nam (UTC+7 = 11:30 UTC cùng ngày)
+    - cron: '30 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-tpai-orchestrator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TPAI Orchestrator Cron Endpoint
+        run: |
+          curl -s -X POST "https://tpai-sales-crm.vercel.app/api/orchestrator/cron" \
+            -H "Content-Type: application/json"

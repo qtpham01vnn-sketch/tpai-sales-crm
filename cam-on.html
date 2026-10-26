@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xác Nhận Giữ Chỗ Thành Công — Khóa Học AI FOR BUSINESS | TPAI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#07153B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TPAI">
+  <link rel="apple-touch-icon" href="/assets/tpai-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tpai: {
+              navy: '#07153B',
+              dark: '#040A1C',
+              blue: '#0D2B8A',
+              cyan: '#00D2FF',
+              amber: '#F59E0B',
+              surface: 'rgba(7, 21, 59, 0.7)',
+              border: 'rgba(0, 210, 255, 0.2)'
+            }
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #040A1C;
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 35px rgba(0, 210, 255, 0.3);
+    }
+    .glow-amber {
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);
+    }
+    .glass-card {
+      background: rgba(7, 21, 59, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 210, 255, 0.22);
+    }
+    .glass-ticket {
+      background: linear-gradient(135deg, rgba(13, 43, 138, 0.25) 0%, rgba(7, 21, 59, 0.85) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 210, 255, 0.4);
+      box-shadow: 0 25px 50px -12px rgba(0, 210, 255, 0.2);
+    }
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #FFFFFF 0%, #00D2FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-amber {
+      background: linear-gradient(135deg, #FFFBEB 0%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .glass-ticket {
+        border: 2px solid #000 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .text-gradient-cyan, .text-gradient-amber {
+        -webkit-text-fill-color: #000 !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-grid-pattern min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-white/10 backdrop-blur-md bg-tpai-dark/80 sticky top-0 z-40 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-3">
+        <img src="/assets/tpai-logo.png" alt="TPAI Logo" class="h-10 w-auto object-contain">
+      </a>
+      <div class="flex items-center space-x-3">
+        <a href="https://zalo.me/0977138673" target="_blank" class="inline-flex items-center space-x-2 text-xs sm:text-sm text-slate-300 hover:text-white px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-700 transition">
+          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-400"></i>
+          <span>Hotline: 0977.138.673</span>
+        </a>
+        <a href="/" class="inline-flex items-center space-x-1.5 text-xs sm:text-sm text-tpai-cyan hover:underline font-semibold">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Trang Chủ</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Success Notification Banner -->
+      <div class="text-center mb-10 space-y-4">
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs sm:text-sm font-bold animate-bounce">
+          <i data-lucide="check-check" class="w-4 h-4"></i>
+          <span>XÁC NHẬN GIỮ CHỖ & THANH TOÁN THÀNH CÔNG!</span>
+        </div>
+        
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white tracking-tight">
+          Chào Mừng Bạn Đến Với Khóa Học <br class="hidden sm:inline">
+          <span class="text-gradient-cyan">AI FOR BUSINESS 2026</span>
+        </h1>
+        
+        <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          Ban tổ chức <b class="text-white">TPAI — Học Viện AI</b> đã nhận được khoản thanh toán và chính thức xác nhận vị trí tham dự của bạn. Vé mời điện tử và phòng học Zoom VIP đã được kích hoạt!
+        </p>
+      </div>
+
+      <!-- Electronic Boarding Ticket (Vé Điện Tử VIP) -->
+      <div id="ticketCard" class="glass-ticket rounded-3xl p-6 sm:p-10 mb-12 relative overflow-hidden">
+        
+        <!-- Top Glow Elements -->
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-tpai-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-tpai-amber/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Ticket Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-6 mb-8 gap-4">
+          <div class="flex items-center space-x-4">
+            <img src="/assets/tpai-logo.png" alt="TPAI Logo" class="h-10 sm:h-12 w-auto object-contain">
+            <div class="border-l border-white/20 pl-4">
+              <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-semibold">VÉ HỌC VIÊN CHÍNH THỨC</div>
+              <div class="text-xs sm:text-sm font-bold text-tpai-cyan font-heading">AI FOR BUSINESS VIP PASS</div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2 self-start sm:self-auto">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+              ĐÃ XÁC NHẬN
+            </span>
+            <span class="font-mono text-xs sm:text-sm font-bold text-slate-400 bg-slate-900/80 px-3 py-1 rounded-full border border-slate-700" id="ticketOrderCode">
+              TPAI-LOADING
+            </span>
+          </div>
+        </div>
+
+        <!-- Ticket Body: Grid Info -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 text-sm">
+          
+          <div class="space-y-1">
+            <div class="text-xs text-slate-400 font-medium">Họ và Tên Học Viên:</div>
+            <div class="text-base sm:text-lg font-bold text-white font-heading" id="ticketCustomerName">
+              Quý Học Viên
+            </div>
+            <div class="text-xs text-slate-400" id="ticketPhone">09xx xxx xxx</div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-xs text-slate-400 font-medium">Gói Đào Tạo:</div>
+            <div class="text-base sm:text-lg font-bold text-gradient-amber font-heading" id="ticketPackageName">
+              Gói Cặp Đôi Sếp & Trợ Lý
+            </div>
+            <div class="text-xs text-emerald-400 font-semibold" id="ticketPax">Quyền lợi: 02 Người tham dự</div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-xs text-slate-400 font-medium">Hình Thức Tổ Chức:</div>
+            <div class="text-base sm:text-lg font-bold text-tpai-cyan font-heading flex items-center">
+              <i data-lucide="video" class="w-4 h-4 mr-1.5"></i>
+              Zoom VIP Quốc Tế
+            </div>
+            <div class="text-xs text-slate-300">Có Record 4K & Kèm 1-1 riêng</div>
+          </div>
+
+          <div class="space-y-1 sm:col-span-2 lg:col-span-2">
+            <div class="text-xs text-slate-400 font-medium">Lịch Học Chính Thức (2 Buổi Thực Chiến):</div>
+            <div class="text-sm sm:text-base font-bold text-white flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-1">
+              <span class="inline-flex items-center text-amber-300">
+                <i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-amber-400"></i>
+                Buổi 1: Thứ 7 (31/10/2026) &bull; 08:30 - 12:00
+              </span>
+              <span class="inline-flex items-center text-amber-300">
+                <i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-amber-400"></i>
+                Buổi 2: Chủ Nhật (01/11/2026) &bull; 08:30 - 12:00
+              </span>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-xs text-slate-400 font-medium">Chuyên Gia Huấn Luyện:</div>
+            <div class="text-sm sm:text-base font-bold text-slate-200">
+              Thầy Tuấn Phạm & Hội Đồng AIVA
+            </div>
+            <div class="text-xs text-slate-400">Học Viện AI — Tuấn Phạm</div>
+          </div>
+
+        </div>
+
+        <!-- Ticket Footer / Barcode decoration -->
+        <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center space-x-3 text-xs text-slate-400">
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+            <span>Vé điện tử có giá trị điểm danh tự động vào phòng Zoom VIP & nhận Mentor kèm 1-1.</span>
+          </div>
+          <div class="flex items-center space-x-3 no-print">
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center space-x-1.5 transition">
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+              <span>In / Lưu PDF</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3 Hành Động Cần Làm Ngay (Action Checklist) -->
+      <div class="space-y-6 mb-12">
+        <div class="text-center sm:text-left">
+          <h2 class="text-xs uppercase tracking-widest font-bold text-tpai-amber mb-1">CÁC BƯỚC QUAN TRỌNG</h2>
+          <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+            3 Việc Bạn Cần Làm Ngay Bây Giờ
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Step 1: Zalo Group -->
+          <div class="glass-card rounded-2xl p-6 border-2 border-tpai-cyan/50 relative flex flex-col justify-between hover:border-tpai-cyan transition shadow-lg">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-tpai-cyan/10 border border-tpai-cyan/30 flex items-center justify-center text-tpai-cyan font-extrabold font-heading text-lg">
+                1
+              </div>
+              <h4 class="text-lg font-bold font-heading text-white">Vào Nhóm Zalo Lớp VIP</h4>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Thầy Tuấn Phạm và Ban Trợ Lý sẽ duyệt bạn vào nhóm kín để cấp ID/Mật khẩu phòng Zoom và kết nối với Mentor 1 kèm 1.
+              </p>
+            </div>
+            <div class="pt-6">
+              <a href="https://zalo.me/0977138673" target="_blank" class="w-full inline-flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-tpai-blue text-white font-extrabold text-xs sm:text-sm shadow-xl hover:brightness-110 transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>THAM GIA NHÓM ZALO VIP &rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Step 2: Email Confirmation -->
+          <div class="glass-card rounded-2xl p-6 border-white/10 relative flex flex-col justify-between hover:border-white/30 transition">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-extrabold font-heading text-lg">
+                2
+              </div>
+              <h4 class="text-lg font-bold font-heading text-white">Kiểm Tra Hòm Thư Email</h4>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Hệ thống tự động đã gửi thông báo xác nhận và hướng dẫn chi tiết về hòm thư của bạn. Vui lòng kiểm tra cả mục Quảng cáo / Spam.
+              </p>
+            </div>
+            <div class="pt-6">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 text-[11px] text-slate-400 flex items-center space-x-2">
+                <i data-lucide="mail-check" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                <span class="truncate">Gửi từ: <b class="text-slate-200">Tuấn Phạm — TPAI</b></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Preparation Handbook -->
+          <div class="glass-card rounded-2xl p-6 border-white/10 relative flex flex-col justify-between hover:border-white/30 transition">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-extrabold font-heading text-lg">
+                3
+              </div>
+              <h4 class="text-lg font-bold font-heading text-white">Chuẩn Bị Thiết Bị & AI</h4>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Chuẩn bị sẵn máy tính xách tay cá nhân (Laptop), tài khoản Google/ChatGPT sẵn sàng. Tải trước bộ 50 Prompt Master để nghiên cứu trước.
+              </p>
+            </div>
+            <div class="pt-6 space-y-2">
+              <a href="/assets/50-prompt-master-nghi-dinh-30.docx" download="50-Prompt-Master-Nghi-Dinh-30-TPAI.docx" class="w-full inline-flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 font-bold text-xs border border-blue-500/40 transition">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>Tải File Word NĐ 30 (.docx)</span>
+              </a>
+              <a href="/assets/cam-nang-50-prompt-tpai.pdf" download="Cam-Nang-50-Prompt-TPAI.pdf" class="w-full inline-flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 font-bold text-xs border border-purple-500/40 transition">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Tải Ebook Cẩm Nang (.pdf)</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Support & Guarantee Box -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 text-center space-y-4">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-tpai-blue/30 text-tpai-cyan mb-1">
+          <i data-lucide="headset" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-lg font-bold font-heading text-white">Bạn Cần Hỗ Trợ Kỹ Thuật Hoặc Đổi Thông Tin Học Viên?</h4>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+          Đội ngũ Thầy Tuấn Phạm luôn túc trực 24/7 để hỗ trợ bạn đổi tên người đi cùng, xuất hóa đơn VAT công ty, hoặc hỗ trợ cài đặt công cụ trước buổi học.
+        </p>
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-4 text-xs font-semibold">
+          <a href="https://zalo.me/0977138673" target="_blank" class="px-5 py-2.5 rounded-xl bg-tpai-cyan text-slate-950 font-bold hover:brightness-110 transition flex items-center space-x-2">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            <span>Chat Zalo Trực Tiếp: 0977.138.673</span>
+          </a>
+          <a href="tel:0977138673" class="px-5 py-2.5 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 hover:bg-slate-800 transition flex items-center space-x-2">
+            <i data-lucide="phone" class="w-4 h-4 text-amber-400"></i>
+            <span>Gọi Thầy Tuấn: 0977.138.673</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-8 bg-tpai-dark no-print">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+      <div class="text-sm font-bold text-white">Tuấn Phạm — Học Viện AI</div>
+      <div class="text-xs text-tpai-cyan font-semibold">"Làm chủ AI — Dẫn đầu tương lai"</div>
+      <p class="text-[11px] text-slate-500">
+        Bản quyền &copy; 2026 TPAI. Hệ thống phễu đào tạo và quản trị khách hàng số doanh nghiệp.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Fire Confetti Celebration
+    window.addEventListener('DOMContentLoaded', () => {
+      // Confetti burst
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        setTimeout(() => {
+          confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+        }, 400);
+      } catch (e) {
+        console.warn('Confetti error:', e);
+      }
+
+      function renderTicket(data) {
+        const elOrder = document.getElementById('ticketOrderCode');
+        const elName = document.getElementById('ticketCustomerName');
+        const elPhone = document.getElementById('ticketPhone');
+        const elPackage = document.getElementById('ticketPackageName');
+        const elPax = document.getElementById('ticketPax');
+
+        if (elOrder && data.orderCode) elOrder.textContent = data.orderCode;
+        if (elName && data.customerName) elName.textContent = data.customerName;
+        if (elPhone && data.phone) {
+          elPhone.textContent = data.phone;
+        }
+
+        const pkg = data.packageType || 'combo_9900k';
+        if (pkg === 'combo_9900k') {
+          if (elPackage) elPackage.textContent = 'Gói Cặp Đôi Chiến Lược: Sếp & Trợ Lý';
+          if (elPax) elPax.textContent = 'Quyền lợi: 02 Người tham dự (Sếp + 01 Trợ lý/Quản lý)';
+        } else if (pkg === 'single_6000k') {
+          if (elPackage) elPackage.textContent = 'Gói Cá Nhân Chuyên Sâu';
+          if (elPax) elPax.textContent = 'Quyền lợi: 01 Người tham dự';
+        } else if (pkg === 'inhouse_28000k') {
+          if (elPackage) elPackage.textContent = 'Gói Đào Tạo Doanh Nghiệp In-House';
+          if (elPax) elPax.textContent = 'Quyền lợi: 10 - 20 Nhân sự công ty';
+        }
+      }
+
+      // 1. Initial parse from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      let orderCode = urlParams.get('order') || urlParams.get('code');
+      let customerName = urlParams.get('name') || urlParams.get('customer');
+      let phone = urlParams.get('phone');
+      let packageType = urlParams.get('package');
+
+      // 2. Fallback to localStorage if URL params are empty
+      if (!customerName || !orderCode) {
+        try {
+          const cached = localStorage.getItem('tpai_latest_order');
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (!customerName && parsed.fullName) customerName = parsed.fullName;
+            if (!orderCode && parsed.orderCode) orderCode = parsed.orderCode;
+            if (!phone && parsed.phone) phone = parsed.phone;
+            if (!packageType && (parsed.packageSelected || parsed.package_selected)) {
+              packageType = parsed.packageSelected || parsed.package_selected;
+            }
+          }
+        } catch(e) {}
+      }
+
+      // Render whatever we have first
+      renderTicket({
+        orderCode: orderCode || 'TPAI-289208',
+        customerName: customerName ? decodeURIComponent(customerName) : 'Nguyễn Thế Anh',
+        phone: phone ? decodeURIComponent(phone) : '0977.138.673',
+        packageType: packageType || 'combo_9900k'
+      });
+
+      // 3. Resilient Live Sync with Supabase (Always fetch latest real customer if not passed via URL)
+      const SUPABASE_URL = 'https://yvwsitkgpujeqlgeiuge.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2d3NpdGtncHVqZXFsZ2VpdWdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYwMTgsImV4cCI6MjEwNjUwMjAxOH0.yJ6kP1t63Kx-70H5xVd-gQ0v_1-e6E7h3w4k7j5-6k4';
+
+      let queryUrl = `${SUPABASE_URL}/rest/v1/tpai_leads?order=created_at.desc&limit=1`;
+      if (orderCode && orderCode.startsWith('TPAI-')) {
+        queryUrl = `${SUPABASE_URL}/rest/v1/tpai_leads?order_code=eq.${orderCode}&limit=1`;
+      }
+
+      fetch(queryUrl, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      })
+      .then(res => res.json())
+      .then(leads => {
+        if (leads && leads.length > 0) {
+          const l = leads[0];
+          renderTicket({
+            orderCode: l.order_code || orderCode,
+            customerName: l.full_name || customerName,
+            phone: l.phone || phone,
+            packageType: l.package_selected || packageType
+          });
+        }
+      })
+      .catch(err => console.warn('Supabase fetch ticket warning:', err));
+    });
+  </script>
+</body>
+</html>

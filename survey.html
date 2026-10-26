@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khảo Sát Ứng Tuyển Tư Vấn Chiến Lược AI 1:1 — TPAI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/tpai-icon.svg">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tpai-dark': '#040A1C',
+            'tpai-navy': '#07153B',
+            'tpai-blue': '#0D2B8A',
+            'tpai-cyan': '#00D2FF',
+            'tpai-amber': '#F59E0B'
+          },
+          fontFamily: {
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #040A1C; color: #E2E8F0; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card {
+      background: rgba(7, 21, 59, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+    }
+    .survey-option {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .survey-option:hover {
+      border-color: #00D2FF;
+      background: rgba(13, 43, 138, 0.4);
+      transform: translateY(-1px);
+    }
+    .survey-option.selected {
+      border-color: #00D2FF;
+      background: rgba(0, 210, 255, 0.12);
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.25);
+    }
+    .slot-pill.active {
+      background: linear-gradient(135deg, #00D2FF 0%, #0D2B8A 100%);
+      color: #FFFFFF;
+      border-color: #00D2FF;
+      box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-6">
+
+  <!-- Top Progress Bar -->
+  <header class="max-w-2xl mx-auto w-full pt-4 pb-6">
+    <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+      <a href="/dat-lich" class="hover:text-tpai-cyan flex items-center gap-1">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Quay lại
+      </a>
+      <div class="font-bold uppercase tracking-wider text-amber-400 text-[11px] bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">
+        FORM ỨNG TUYỂN &bull; 5 CÂU &bull; 3 PHÚT
+      </div>
+      <div id="stepCounter" class="font-bold text-tpai-cyan">Câu 1 / 5</div>
+    </div>
+    
+    <!-- Progress Track -->
+    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+      <div id="progressBar" class="bg-gradient-to-r from-tpai-cyan to-blue-500 h-full w-[20%] transition-all duration-300"></div>
+    </div>
+  </header>
+
+  <!-- Survey Container -->
+  <main class="flex-grow flex items-center justify-center py-4">
+    <div class="max-w-2xl w-full glass-card rounded-2xl p-6 sm:p-10 shadow-2xl relative">
+      
+      <!-- TITLE HEADER -->
+      <div class="text-center mb-8">
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-2">
+          Đăng Ký Tư Vấn Chiến Lược AI Doanh Nghiệp
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Trả lời 5 câu ngắn để Thầy Tuấn chuẩn bị đúng giải pháp cho buổi Zoom của bạn.
+        </p>
+      </div>
+
+      <!-- QUESTION 1: TEAM SIZE (DISQUALIFIER) -->
+      <div id="step1" class="survey-step">
+        <div class="text-xs font-bold text-tpai-cyan tracking-wider uppercase mb-1">CÂU 1 / 5</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-4">Team của bạn hiện có bao nhiêu người?</h2>
+        
+        <div class="space-y-3">
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(1, 'solo', true, this)">
+            <div>
+              <div class="font-bold text-sm text-white">Chỉ mình tôi</div>
+              <div class="text-xs text-slate-400 mt-0.5">Solopreneur, người làm tự do, chưa có team</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(1, '2-3 người', false, this)">
+            <div>
+              <div class="font-bold text-sm text-white">2 – 3 người</div>
+              <div class="text-xs text-slate-400 mt-0.5">Mới bắt đầu xây team và vận hành</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(1, '4-10 người', false, this)">
+            <div>
+              <div class="font-bold text-sm text-white">4 – 10 người</div>
+              <div class="text-xs text-slate-400 mt-0.5">Team nhỏ đang mở rộng kinh doanh</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(1, '11-20 người', false, this)">
+            <div>
+              <div class="font-bold text-sm text-white">11 – 20 người</div>
+              <div class="text-xs text-slate-400 mt-0.5">Team trung bình, rất cần tối ưu quy trình</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(1, 'Hơn 20 người', false, this)">
+            <div>
+              <div class="font-bold text-sm text-white">Hơn 20 người</div>
+              <div class="text-xs text-slate-400 mt-0.5">Doanh nghiệp quy mô lớn, nhiều phòng ban</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION 2: PAIN POINT -->
+      <div id="step2" class="survey-step hidden">
+        <div class="text-xs font-bold text-tpai-cyan tracking-wider uppercase mb-1">CÂU 2 / 5</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-4">Điểm nghẽn lớn nhất trong vận hành hiện tại của công ty là gì?</h2>
+        
+        <div class="space-y-3">
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(2, 'Soạn thảo văn bản, báo cáo quá chậm và lủng củng', false, this)">
+            <span class="font-bold text-sm text-white">Văn bản, công văn, báo cáo quá lủng củng và tốn thời gian sửa</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(2, 'Chi phí nhân sự cao nhưng hiệu suất Marketing & Sales thấp', false, this)">
+            <span class="font-bold text-sm text-white">Chi phí nhân sự cao nhưng hiệu suất Marketing & Sales thấp</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(2, 'Sếp bị quá tải vì việc vặt, không có thời gian cho chiến lược', false, this)">
+            <span class="font-bold text-sm text-white">Sếp bị quá tải vì việc vặt, không có thời gian cho chiến lược</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(2, 'Nhân viên ngại dùng AI, có tài khoản nhưng bỏ xó', false, this)">
+            <span class="font-bold text-sm text-white">Nhân viên ngại dùng AI, có tài khoản nhưng bỏ xó</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION 3: PAST AI EXPERIENCE -->
+      <div id="step3" class="survey-step hidden">
+        <div class="text-xs font-bold text-tpai-cyan tracking-wider uppercase mb-1">CÂU 3 / 5</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-4">Công ty bạn đã từng thử đưa AI vào vận hành chưa?</h2>
+        
+        <div class="space-y-3">
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(3, 'Chưa từng thử, chưa biết bắt đầu từ đâu', false, this)">
+            <span class="font-bold text-sm text-white">Chưa từng thử, chưa biết bắt đầu từ đâu</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(3, 'Đã mua ChatGPT/Claude nhưng nhân viên dùng không hiệu quả', false, this)">
+            <span class="font-bold text-sm text-white">Đã mua ChatGPT/Claude nhưng nhân viên dùng không hiệu quả</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(3, 'Đang tự mày mò nhưng thiếu quy chuẩn và quy trình bài bản', false, this)">
+            <span class="font-bold text-sm text-white">Đang tự mày mò nhưng thiếu quy chuẩn và quy trình bài bản</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(3, 'Đã ứng dụng một phần nhưng muốn tự động hóa toàn diện', false, this)">
+            <span class="font-bold text-sm text-white">Đã ứng dụng một phần nhưng muốn tự động hóa toàn diện</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION 4: EXPECTATION -->
+      <div id="step4" class="survey-step hidden">
+        <div class="text-xs font-bold text-tpai-cyan tracking-wider uppercase mb-1">CÂU 4 / 5</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-4">Bạn muốn đạt được kết quả cụ thể nào sau 30 ngày?</h2>
+        
+        <div class="space-y-3">
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(4, 'Cắt giảm 50% thời gian xử lý văn bản chuẩn Nghị định 30', false, this)">
+            <span class="font-bold text-sm text-white">Cắt giảm 50% thời gian xử lý văn bản chuẩn Nghị định 30</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(4, 'Xây dựng đội ngũ trợ lý AI cho từng phòng ban', false, this)">
+            <span class="font-bold text-sm text-white">Xây dựng đội ngũ trợ lý AI cho từng phòng ban (Sales, MKT, HCNS)</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(4, 'Tối ưu chi phí lương nhân sự và tăng gấp đôi tốc độ kinh doanh', false, this)">
+            <span class="font-bold text-sm text-white">Tối ưu chi phí lương nhân sự và tăng gấp đôi tốc độ kinh doanh</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(4, 'Tự động hóa để sếp giải phóng bản thân khỏi sự vụ', false, this)">
+            <span class="font-bold text-sm text-white">Tự động hóa để sếp giải phóng bản thân khỏi sự vụ</span>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION 5: FINANCIAL READINESS (DISQUALIFIER) -->
+      <div id="step5" class="survey-step hidden">
+        <div class="text-xs font-bold text-tpai-cyan tracking-wider uppercase mb-1">CÂU 5 / 5 (QUAN TRỌNG)</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-2">
+          Nếu buổi tư vấn chứng minh giải pháp TPAI giúp công ty tiết kiệm 20–40 triệu/tháng, bạn có sẵn sàng đầu tư ngân sách để triển khai ngay không?
+        </h2>
+        <p class="text-xs text-slate-400 mb-4">Câu trả lời giúp chúng tôi phân bổ chuyên gia cấp cao phù hợp nhất.</p>
+        
+        <div class="space-y-3">
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(5, 'Có — Sẵn sàng đầu tư (Gói In-House 28M hoặc Cặp Đôi 9.9M)', false, this)">
+            <div>
+              <div class="font-bold text-sm text-emerald-400">Có — Tôi sẵn sàng đầu tư ngân sách nếu giải pháp phù hợp</div>
+              <div class="text-xs text-slate-400 mt-0.5">Sẵn sàng triển khai gói In-House 28M hoặc gói Cặp Đôi 9.9M</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(5, 'Có thể — Cần thảo luận lại với cổ đông/kế toán', false, this)">
+            <div>
+              <div class="font-bold text-sm text-white">Có thể — Cần bàn lại với cổ đông hoặc kế toán</div>
+              <div class="text-xs text-slate-400 mt-0.5">Quan tâm nghiêm túc, cần thông qua ban lãnh đạo</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+
+          <div class="survey-option p-4 rounded-xl border border-slate-700 bg-slate-900/60 flex items-center justify-between" onclick="chooseOption(5, 'Chưa — Chỉ muốn tìm hiểu miễn phí, chưa có ngân sách', true, this)">
+            <div>
+              <div class="font-bold text-sm text-rose-300">Chưa — Tôi chỉ muốn tìm hiểu miễn phí thôi, chưa có ngân sách</div>
+              <div class="text-xs text-slate-400 mt-0.5">Đang khảo sát, chưa có kế hoạch đầu tư</div>
+            </div>
+            <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center radio-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINAL STEP: CONTACT & SLOT SELECTION -->
+      <div id="step6" class="survey-step hidden">
+        <div class="text-xs font-bold text-amber-400 tracking-wider uppercase mb-1">BƯỚC CUỐI CÙNG</div>
+        <h2 class="text-base sm:text-xl font-bold text-white mb-2">Thông Tin Của Bạn & Chọn Lịch Hẹn Thuận Tiện</h2>
+        <p class="text-xs text-slate-400 mb-6">Để chúng tôi gửi đường link phòng Zoom VIP và lịch hẹn trực tiếp cho bạn.</p>
+
+        <form id="contactForm" onsubmit="submitSurvey(event)" class="space-y-4">
+          <div class="grid sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Họ và tên của bạn <span class="text-rose-400">*</span></label>
+              <input type="text" id="custName" required placeholder="Nguyễn Văn A" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-tpai-cyan">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Số điện thoại / Zalo <span class="text-rose-400">*</span></label>
+              <input type="tel" id="custPhone" required placeholder="0977 123 456" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-tpai-cyan">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Email nhận link Zoom <span class="text-rose-400">*</span></label>
+              <input type="email" id="custEmail" required placeholder="giamdoc@congty.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-tpai-cyan">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Tên công ty / Doanh nghiệp <span class="text-rose-400">*</span></label>
+              <input type="text" id="custCompany" required placeholder="Tập Đoàn Xây Dựng ABC" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-tpai-cyan">
+            </div>
+          </div>
+
+          <!-- Chọn ngày & giờ -->
+          <div class="pt-3 border-t border-slate-800">
+            <label class="block text-xs font-bold text-amber-400 mb-2">Chọn Khung Giờ Bạn Thuận Tiện Nhất: <span class="text-rose-400">*</span></label>
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3" id="dateSlotsBox"></div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="timeSlotsBox">
+              <button type="button" onclick="setTime('09:00 - 09:30')" class="slot-pill time-btn text-xs py-2 px-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 font-semibold text-center">09:00 - 09:30</button>
+              <button type="button" onclick="setTime('14:30 - 15:00')" class="slot-pill time-btn text-xs py-2 px-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 font-semibold text-center">14:30 - 15:00</button>
+              <button type="button" onclick="setTime('16:00 - 16:30')" class="slot-pill time-btn text-xs py-2 px-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 font-semibold text-center">16:00 - 16:30</button>
+              <button type="button" onclick="setTime('20:00 - 20:30')" class="slot-pill time-btn active text-xs py-2 px-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 font-semibold text-center">20:00 - 20:30 (Tối)</button>
+            </div>
+            <input type="hidden" id="finalDate" value="">
+            <input type="hidden" id="finalTime" value="20:00 - 20:30">
+          </div>
+
+          <div class="pt-4">
+            <button type="submit" id="submitBtn" class="w-full py-4 px-6 rounded-xl font-heading font-extrabold text-sm sm:text-base text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 transition shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>HOÀN TẤT & XÁC NHẬN LỊCH TƯ VẤN 1:1</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="surveyLoading" class="hidden absolute inset-0 bg-[#07153B]/95 rounded-2xl flex flex-col items-center justify-center z-30">
+        <div class="w-12 h-12 border-4 border-tpai-cyan border-t-transparent rounded-full animate-spin mb-4"></div>
+        <div class="text-white font-bold text-sm">Đang phân tích dữ liệu ứng tuyển...</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="text-center text-xs text-slate-600 py-3">
+    TPAI &bull; Tuấn Phạm AI &bull; Bảo mật thông tin kinh doanh 100%
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    let currentStep = 1;
+    let isDisqualified = false; // Flag to redirect not-a-fit
+    const answers = {};
+
+    function updateProgress(step) {
+      document.getElementById('stepCounter').innerText = step <= 5 ? `Câu ${step} / 5` : `Hoàn tất`;
+      const pct = step <= 5 ? (step - 1) * 20 : 100;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    function chooseOption(stepNum, val, disqualifyFlag, el) {
+      answers['q' + stepNum] = val;
+      if (disqualifyFlag) isDisqualified = true;
+
+      // Visual highlight
+      const parent = el.parentElement;
+      parent.querySelectorAll('.survey-option').forEach(opt => {
+        opt.classList.remove('selected');
+        const dot = opt.querySelector('.radio-dot');
+        if (dot) dot.innerHTML = '';
+      });
+      el.classList.add('selected');
+      const dot = el.querySelector('.radio-dot');
+      if (dot) dot.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-tpai-cyan"></div>';
+
+      // Auto advance after 250ms
+      setTimeout(() => {
+        document.getElementById(`step${stepNum}`).classList.add('hidden');
+        currentStep = stepNum + 1;
+        document.getElementById(`step${currentStep}`).classList.remove('hidden');
+        updateProgress(currentStep);
+        lucide.createIcons();
+      }, 250);
+    }
+
+    // Init Date Slots
+    function initDates() {
+      const box = document.getElementById('dateSlotsBox');
+      const days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+      const today = new Date();
+      let first = '';
+
+      for (let i = 1; i <= 5; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() + i);
+        const dayStr = days[d.getDay()];
+        const dNum = String(d.getDate()).padStart(2, '0');
+        const mNum = String(d.getMonth() + 1).padStart(2, '0');
+        const str = `${dayStr}, ${dNum}/${mNum}`;
+        if (i === 1) first = str;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `slot-pill date-btn text-xs py-1.5 px-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 font-semibold text-center ${i === 1 ? 'active' : ''}`;
+        btn.innerHTML = `<div class="text-[10px] text-slate-400 uppercase">${dayStr}</div><div class="font-bold text-xs">${dNum}/${mNum}</div>`;
+        btn.onclick = () => {
+          document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('finalDate').value = str;
+        };
+        box.appendChild(btn);
+      }
+      document.getElementById('finalDate').value = first;
+    }
+
+    function setTime(tStr) {
+      document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('finalTime').value = tStr;
+    }
+
+    initDates();
+
+    // Submit Handler
+    async function submitSurvey(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const company = document.getElementById('custCompany').value.trim();
+      const date = document.getElementById('finalDate').value;
+      const time = document.getElementById('finalTime').value;
+
+      document.getElementById('surveyLoading').classList.remove('hidden');
+
+      try {
+        // Gửi data tới API
+        const payload = {
+          fullName,
+          phone,
+          email,
+          companyName: company,
+          teamSize: answers.q1 || 'Chưa rõ',
+          bottleneck: answers.q2 || 'Chưa rõ',
+          budget: answers.q5 || 'Chưa rõ',
+          bookingDate: date,
+          bookingTime: time,
+          notes: `[Khảo Sát Ứng Tuyển]: Q1 Team: ${answers.q1} | Q2 Điểm nghẽn: ${answers.q2} | Q3 Đã dùng AI: ${answers.q3} | Q4 Mục tiêu 30 ngày: ${answers.q4} | Q5 Ngân sách: ${answers.q5}`
+        };
+
+        const res = await fetch('/api/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        // ROUTING LOGIC:
+        if (isDisqualified) {
+          // Khách chưa đủ điều kiện 1:1 -> Chuyển sang not-a-fit.html (không lãng phí lead)
+          window.location.href = `/not-a-fit.html?name=${encodeURIComponent(fullName)}&phone=${encodeURIComponent(phone)}`;
+        } else {
+          // Khách đủ tiêu chuẩn -> Chuyển sang thank-you.html (Xem video niềm tin + homework Zoom)
+          window.location.href = `/thank-you.html?booking=${encodeURIComponent(data.bookingCode || 'TPAI-BK')}&name=${encodeURIComponent(fullName)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+        }
+
+      } catch (err) {
+        document.getElementById('surveyLoading').classList.add('hidden');
+        console.error('Submit error:', err);
+        alert('Có lỗi kết nối. Vui lòng liên hệ Hotline/Zalo: 0977.138.673');
+      }
+    }
+  </script>
+</body>
+</html>
