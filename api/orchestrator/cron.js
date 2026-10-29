@@ -155,6 +155,32 @@ export default async function handler(req, res) {
     });
     const tgData = await tgRes.json();
 
+    // Optional Facebook Fanpage Auto-Publish via Webhook (Make.com / Pabbly — Khuyên Dùng 100% Free)
+    let fbWebhookResult = null;
+    if (config.fb_webhook_url) {
+      try {
+        const fbWebRes = await fetch(config.fb_webhook_url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'auto_publish',
+            title: nextItem.topic_title,
+            message: nextItem.content_text,
+            content: nextItem.content_text,
+            image_url: mediaFullUrl,
+            media_url: mediaFullUrl,
+            media_type: nextItem.media_type,
+            page_id: config.fb_page_id || '809750085555882',
+            scheduled_slot: nextItem.scheduled_slot,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+        fbWebhookResult = { ok: fbWebRes.ok, status: fbWebRes.status };
+      } catch (err) {
+        fbWebhookResult = { ok: false, error: err.message };
+      }
+    }
+
     // Optional Facebook Fanpage Auto-Publish if Page ID & Token configured
     let fbResult = null;
     if (config.fb_page_id && config.fb_page_token) {

@@ -1073,13 +1073,25 @@
                   </select>
                 </div>
 
+                <div class="p-3 rounded-xl bg-blue-950/30 border border-blue-500/30 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-bold text-tpai-cyan flex items-center space-x-1.5">
+                      <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                      <span>Facebook Auto-Publish Webhook (Make.com / Pabbly):</span>
+                    </label>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">100% Tự Động Miễn Phí</span>
+                  </div>
+                  <input type="text" id="orchFbWebhookUrl" placeholder="Dán link Webhook Make.com (VD: https://hook.eu2.make.com/...)" class="w-full p-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-[11px] focus:outline-none focus:border-tpai-cyan placeholder-slate-600">
+                  <p class="text-[10px] text-slate-400">💡 Cầm điện thoại bấm "Duyệt & Đăng Ngay" hoặc đến 06:30 & 18:30 tự động xuất bản thẳng lên Fanpage-Tuấn Phạm 100% không cần chạm tay.</p>
+                </div>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label class="block text-slate-400 mb-1">Facebook Fanpage ID (Tùy chọn):</label>
-                    <input type="text" id="orchFbPageId" placeholder="VD: 10482910482..." class="w-full p-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-[11px] focus:outline-none focus:border-tpai-cyan">
+                    <label class="block text-slate-400 mb-1">Facebook Fanpage ID (Tuấn Phạm):</label>
+                    <input type="text" id="orchFbPageId" value="809750085555882" placeholder="809750085555882" class="w-full p-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-[11px] focus:outline-none focus:border-tpai-cyan">
                   </div>
                   <div>
-                    <label class="block text-slate-400 mb-1">Meta Page Access Token (Free):</label>
+                    <label class="block text-slate-400 mb-1">Meta Page Access Token (Tùy chọn):</label>
                     <input type="password" id="orchFbPageToken" placeholder="EAA..." class="w-full p-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-[11px] focus:outline-none focus:border-tpai-cyan">
                   </div>
                 </div>
@@ -2618,10 +2630,12 @@
 
         // Sync Config UI
         const appModeEl = document.getElementById('orchApprovalMode');
+        const fbWebhookEl = document.getElementById('orchFbWebhookUrl');
         const fbIdEl = document.getElementById('orchFbPageId');
         const fbTokenEl = document.getElementById('orchFbPageToken');
         if (appModeEl && orchestratorConfig.approval_mode) appModeEl.value = orchestratorConfig.approval_mode;
-        if (fbIdEl && orchestratorConfig.fb_page_id) fbIdEl.value = orchestratorConfig.fb_page_id;
+        if (fbWebhookEl && orchestratorConfig.fb_webhook_url) fbWebhookEl.value = orchestratorConfig.fb_webhook_url;
+        if (fbIdEl) fbIdEl.value = orchestratorConfig.fb_page_id || '809750085555882';
         if (fbTokenEl && orchestratorConfig.fb_page_token) fbTokenEl.value = orchestratorConfig.fb_page_token;
 
         renderOrchestratorQueue();
@@ -3004,7 +3018,8 @@
 
     async function saveOrchestratorConfig() {
       const approval_mode = document.getElementById('orchApprovalMode').value;
-      const fb_page_id = document.getElementById('orchFbPageId').value.trim();
+      const fb_webhook_url = document.getElementById('orchFbWebhookUrl').value.trim();
+      const fb_page_id = document.getElementById('orchFbPageId').value.trim() || '809750085555882';
       const fb_page_token = document.getElementById('orchFbPageToken').value.trim();
 
       try {
@@ -3015,12 +3030,13 @@
             action: 'save_config',
             schedule_hours: ['06:30', '18:30'],
             approval_mode,
+            fb_webhook_url,
             fb_page_id,
             fb_page_token
           })
         });
       } catch (_) {}
-      alert('Đã lưu cấu hình lịch đăng cố định 06:30 sáng & 18:30 chiều!');
+      alert('Đã lưu cấu hình lịch đăng 06:30 & 18:30 và Webhook Fanpage thành công!');
     }
 
     // Register Service Worker for PWA (Installable on mobile phones)

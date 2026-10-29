@@ -92,8 +92,9 @@ const DEFAULT_ORCHESTRATOR_CONFIG = {
   channels: ['telegram', 'facebook', 'zalo', 'tiktok'],
   topic_mode: 'auto_pilot', // 'auto_pilot' hoặc 'co_pilot'
   approval_mode: 'telegram_copilot', // 'telegram_copilot' hoặc 'full_auto'
-  fb_page_id: '',
+  fb_page_id: '809750085555882',
   fb_page_token: '',
+  fb_webhook_url: '',
   telegram_channel_id: TELEGRAM_CHAT_ID,
   last_run_at: new Date().toISOString()
 };
@@ -409,6 +410,7 @@ export default async function handler(req, res) {
           approval_mode: body.approval_mode || config.approval_mode,
           fb_page_id: body.fb_page_id !== undefined ? body.fb_page_id : config.fb_page_id,
           fb_page_token: body.fb_page_token !== undefined ? body.fb_page_token : config.fb_page_token,
+          fb_webhook_url: body.fb_webhook_url !== undefined ? body.fb_webhook_url : (config.fb_webhook_url || ''),
           updated_at: new Date().toISOString()
         };
         await saveSupabaseSetting('orchestrator_config', config);
@@ -532,6 +534,38 @@ export default async function handler(req, res) {
         }
 
         const teleOk = await sendTelegramNotification(targetItem, mode);
+
+        // Nếu xuất bản lên Facebook Fanpage qua Webhook (Make.com / Pabbly — Khuyên Dùng 100% Free)
+        let fbWebhookResult = null;
+        if (mode === 'publish' && config.fb_webhook_url) {
+          try {
+            const baseAppUrl = 'https://tpai-sales-crm.vercel.app';
+            const mediaFullUrl = targetItem.media_url?.startsWith('http')
+              ? targetItem.media_url
+              : `${baseAppUrl}${targetItem.media_url || '/assets/content/card-nd30.png'}`;
+
+            const fbWebRes = await fetch(config.fb_webhook_url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'publish_post',
+                title: targetItem.topic_title,
+                message: targetItem.content_text,
+                content: targetItem.content_text,
+                image_url: mediaFullUrl,
+                media_url: mediaFullUrl,
+                media_type: targetItem.media_type,
+                page_id: config.fb_page_id || '809750085555882',
+                scheduled_slot: targetItem.scheduled_slot,
+                timestamp: new Date().toISOString()
+              })
+            });
+            fbWebhookResult = { ok: fbWebRes.ok, status: fbWebRes.status };
+          } catch (webErr) {
+            console.warn('[FB Webhook Publish Warning]', webErr.message);
+            fbWebhookResult = { ok: false, error: webErr.message };
+          }
+        }
 
         // Nếu xuất bản lên Facebook Fanpage qua Meta Graph API (khi Thầy đã điền Page Token)
         let fbResult = null;

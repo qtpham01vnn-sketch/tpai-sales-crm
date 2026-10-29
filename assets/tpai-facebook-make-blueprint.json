@@ -1,0 +1,38 @@
+{
+  "name": "TPAI 13 AI Agents to Facebook Fanpage Auto-Publish",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {},
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "TPAI CRM Webhook"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "facebook-pages:createAPhotoPost",
+      "version": 1,
+      "parameters": {
+        "page": "809750085555882"
+      },
+      "mapper": {
+        "url": "{{1.image_url}}",
+        "caption": "{{1.message}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "name": "Đăng Lên Fanpage-Tuấn Phạm"
+        }
+      }
+    }
+  ]
+}
