@@ -163,6 +163,9 @@ export default async function handler(req, res) {
 
     // Optional Facebook Fanpage Auto-Publish via Webhook (Make.com / Pabbly — Khuyên Dùng 100% Free)
     let fbWebhookResult = null;
+    const isVideo = nextItem.media_type === 'video_reels';
+    const effectiveImageUrl = isVideo ? mediaFullUrl : thumbnailFullUrl;
+
     if (config.fb_webhook_url) {
       try {
         const fbWebRes = await fetch(config.fb_webhook_url, {
@@ -173,8 +176,9 @@ export default async function handler(req, res) {
             title: nextItem.topic_title,
             message: nextItem.content_text,
             content: nextItem.content_text,
-            image_url: thumbnailFullUrl,
+            image_url: effectiveImageUrl,
             video_url: mediaFullUrl,
+            url: mediaFullUrl,
             media_url: mediaFullUrl,
             thumbnail_url: thumbnailFullUrl,
             media_type: nextItem.media_type,

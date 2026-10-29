@@ -547,6 +547,11 @@ export default async function handler(req, res) {
               ? targetItem.thumbnail_url
               : `${baseAppUrl}${targetItem.thumbnail_url || targetItem.media_url || '/assets/content/card-nd30.png'}`;
 
+            // Luôn đảm bảo media_url, video_url và image_url đều có giá trị link trực tiếp
+            const isVideo = targetItem.media_type === 'video_reels';
+            const effectiveVideoUrl = isVideo ? mediaFullUrl : '';
+            const effectiveImageUrl = isVideo ? mediaFullUrl : thumbnailFullUrl;
+
             const fbWebRes = await fetch(config.fb_webhook_url, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -555,8 +560,9 @@ export default async function handler(req, res) {
                 title: targetItem.topic_title,
                 message: targetItem.content_text,
                 content: targetItem.content_text,
-                image_url: thumbnailFullUrl,
+                image_url: effectiveImageUrl,
                 video_url: mediaFullUrl,
+                url: mediaFullUrl,
                 media_url: mediaFullUrl,
                 thumbnail_url: thumbnailFullUrl,
                 media_type: targetItem.media_type,
