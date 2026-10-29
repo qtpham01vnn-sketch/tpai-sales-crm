@@ -91,6 +91,9 @@
 </head>
 <body class="bg-grid-pattern min-h-screen">
 
+  <!-- Dynamic Active Campaign Top Banner (Đồng bộ 100% từ 13 AI Agents & Facebook) -->
+  <div id="heroCampaignBanner" class="hidden sticky top-0 z-50"></div>
+
   <!-- Top Announcement Bar -->
   <div class="bg-gradient-to-r from-tpai-blue via-tpai-navy to-tpai-blue text-white py-2.5 px-4 text-center border-b border-tpai-border text-xs md:text-sm font-medium sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
@@ -152,13 +155,13 @@
         
         <!-- Left Hero Content -->
         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-          <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tpai-cyan/10 border border-tpai-cyan/30 text-tpai-cyan text-xs font-semibold uppercase tracking-wider">
+          <div id="heroCampaignBadge" class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tpai-cyan/10 border border-tpai-cyan/30 text-tpai-cyan text-xs font-semibold uppercase tracking-wider">
             <span class="w-2 h-2 rounded-full bg-tpai-cyan animate-ping"></span>
             <span>Khóa Huấn Luyện Thực Chiến Doanh Nghiệp 2026</span>
           </div>
 
           <div class="space-y-3">
-            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-snug tracking-tight">
+            <h1 id="heroCampaignHeadline" class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-snug tracking-tight">
               <span class="block">Sếp Đi Học Một Mình Về <span class="inline-block px-2.5 py-0.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 text-lg sm:text-3xl lg:text-4xl font-bold align-middle">Không Ai Làm</span></span>
               <span class="block mt-1 sm:mt-2">Nhân Viên Học Về <span class="inline-block px-2.5 py-0.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 text-lg sm:text-3xl lg:text-4xl font-bold align-middle">Sếp Không Duyệt?</span></span>
               <span class="block mt-2 sm:mt-3 text-gradient-cyan">Đột Phá Cùng Cặp Đôi Chiến Lược!</span>
@@ -179,7 +182,7 @@
             </div>
           </div>
 
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          <p id="heroCampaignDesc" class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
             Khóa đào tạo chuyên sâu <b>2 buổi</b>: <b class="text-tpai-cyan">Sếp Chỉ Đạo</b> nắm tư duy điều hành & an toàn dữ liệu mật — <b class="text-tpai-amber">Trợ Lý Thực Thi</b> nắm kỹ thuật đóng gói Custom AI Agents. Học xong có ngay biệt đội Trợ lý AI chạy tự động mang về cắm vào doanh nghiệp!
           </p>
 
@@ -2436,10 +2439,55 @@
       });
     }
 
+    // Dynamic Campaign Hydration from 13 AI Agents & Facebook (Omnichannel Sync)
+    async function checkActiveCampaign() {
+      try {
+        const res = await fetch('/api/orchestrator/campaign', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const c = data.campaign;
+        if (c && c.active) {
+          const banner = document.getElementById('heroCampaignBanner');
+          const badge = document.getElementById('heroCampaignBadge');
+          const headline = document.getElementById('heroCampaignHeadline');
+          const desc = document.getElementById('heroCampaignDesc');
+
+          if (banner) {
+            banner.innerHTML = `
+              <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-slate-950 font-extrabold text-xs py-2 px-4 text-center flex items-center justify-center space-x-2 shadow-lg">
+                <span class="px-2 py-0.5 rounded bg-black text-amber-300 text-[10px] font-mono tracking-wider animate-pulse">🔥 TIÊU ĐIỂM</span>
+                <span><b>${escapeHtml(c.badge || 'CHIẾN DỊCH ĐẶC BIỆT')}:</b> ${escapeHtml(c.title)}</span>
+                <span class="hidden sm:inline opacity-85">— Khám phá ngay giải pháp bên dưới!</span>
+              </div>
+            `;
+            banner.classList.remove('hidden');
+          }
+
+          if (badge && c.badge) {
+            badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span><span>${escapeHtml(c.badge)}</span>`;
+            badge.className = 'inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider shadow';
+          }
+
+          if (headline && c.headline_line1) {
+            headline.innerHTML = `
+              <span class="block">${escapeHtml(c.headline_line1)}</span>
+              ${c.headline_line2 ? `<span class="block mt-1 sm:mt-2 text-gradient-cyan">${escapeHtml(c.headline_line2)}</span>` : ''}
+              ${c.headline_line3 ? `<span class="block mt-2 sm:mt-3 text-white text-xl sm:text-3xl font-bold">${escapeHtml(c.headline_line3)}</span>` : ''}
+            `;
+          }
+
+          if (desc && c.subheadline) {
+            desc.innerHTML = escapeHtml(c.subheadline);
+          }
+        }
+      } catch (_) {}
+    }
+
     // Initialize Lucide Icons & Dynamic Settings
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDynamicSettings();
+      checkActiveCampaign();
       startCountdown();
 
       // Video play/pause overlay event listeners

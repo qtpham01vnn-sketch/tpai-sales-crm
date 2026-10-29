@@ -116,6 +116,12 @@ export default async function handler(req, res) {
       ? nextItem.media_url
       : `${baseAppUrl}${nextItem.media_url || '/assets/content/card-nd30.png'}`;
 
+    const thumbnailFullUrl = nextItem.thumbnail_url?.startsWith('http')
+      ? nextItem.thumbnail_url
+      : nextItem.thumbnail_url
+      ? `${baseAppUrl}${nextItem.thumbnail_url}`
+      : mediaFullUrl;
+
     const scheduleTimeStr = nextItem.scheduled_at
       ? new Date(nextItem.scheduled_at).toLocaleString('vi-VN', {
           timeZone: 'Asia/Ho_Chi_Minh',
@@ -167,8 +173,10 @@ export default async function handler(req, res) {
             title: nextItem.topic_title,
             message: nextItem.content_text,
             content: nextItem.content_text,
-            image_url: mediaFullUrl,
+            image_url: thumbnailFullUrl,
+            video_url: mediaFullUrl,
             media_url: mediaFullUrl,
+            thumbnail_url: thumbnailFullUrl,
             media_type: nextItem.media_type,
             page_id: config.fb_page_id || '809750085555882',
             scheduled_slot: nextItem.scheduled_slot,

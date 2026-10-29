@@ -543,6 +543,9 @@ export default async function handler(req, res) {
             const mediaFullUrl = targetItem.media_url?.startsWith('http')
               ? targetItem.media_url
               : `${baseAppUrl}${targetItem.media_url || '/assets/content/card-nd30.png'}`;
+            const thumbnailFullUrl = targetItem.thumbnail_url?.startsWith('http')
+              ? targetItem.thumbnail_url
+              : `${baseAppUrl}${targetItem.thumbnail_url || targetItem.media_url || '/assets/content/card-nd30.png'}`;
 
             const fbWebRes = await fetch(config.fb_webhook_url, {
               method: 'POST',
@@ -552,8 +555,10 @@ export default async function handler(req, res) {
                 title: targetItem.topic_title,
                 message: targetItem.content_text,
                 content: targetItem.content_text,
-                image_url: mediaFullUrl,
+                image_url: thumbnailFullUrl,
+                video_url: mediaFullUrl,
                 media_url: mediaFullUrl,
+                thumbnail_url: thumbnailFullUrl,
                 media_type: targetItem.media_type,
                 page_id: config.fb_page_id || '809750085555882',
                 scheduled_slot: targetItem.scheduled_slot,

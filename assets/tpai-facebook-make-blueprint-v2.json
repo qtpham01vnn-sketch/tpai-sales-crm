@@ -1,0 +1,107 @@
+{
+  "name": "TPAI 13 AI Agents - Auto Publish Photo & Video to Facebook Fanpage",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {},
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "Webhook Nhận Bài TPAI"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 3,
+              "module": "facebook-pages:createAPostWithPhotos",
+              "version": 2,
+              "parameters": {},
+              "mapper": {
+                "page": "809750085555882",
+                "photos": [
+                  {
+                    "url": "{{1.image_url}}",
+                    "caption": ""
+                  }
+                ],
+                "message": "{{1.message}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 300,
+                  "y": -100,
+                  "name": "Facebook - Đăng Ảnh Card (06:30)"
+                }
+              }
+            }
+          ],
+          "filter": {
+            "name": "Nếu là Ảnh Card (Sáng)",
+            "conditions": [
+              [
+                {
+                  "a": "{{1.media_type}}",
+                  "b": "video_reels",
+                  "o": "text:notEqual"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "flow": [
+            {
+              "id": 4,
+              "module": "facebook-pages:createAVideo",
+              "version": 2,
+              "parameters": {},
+              "mapper": {
+                "page": "809750085555882",
+                "file_url": "{{1.video_url}}",
+                "title": "{{1.title}}",
+                "description": "{{1.message}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 300,
+                  "y": 100,
+                  "name": "Facebook - Đăng Video Reels (18:30)"
+                }
+              }
+            }
+          ],
+          "filter": {
+            "name": "Nếu là Video Reels (Chiều)",
+            "conditions": [
+              [
+                {
+                  "a": "{{1.media_type}}",
+                  "b": "video_reels",
+                  "o": "text:equal"
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "metadata": {
+        "designer": {
+          "x": 150,
+          "y": 0,
+          "name": "Bộ Định Tuyến Ảnh / Video"
+        }
+      }
+    }
+  ]
+}

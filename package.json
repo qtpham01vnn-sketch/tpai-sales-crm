@@ -6,6 +6,6 @@
   "type": "module",
   "scripts": {
     "start": "npx serve .",
-    "build": "node --check api/sepay-webhook.js && node --check api/send-email.js && node --check api/booking.js && node --check api/webhook/lead.js && node --check api/webhook/provision.js && node --check api/orchestrator/command.js && node --check api/orchestrator/cron.js && node -e \"JSON.parse(require('fs').readFileSync('vercel.json','utf8')); JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('Build & Syntax Verification PASSED 100%');\""
+    "build": "node --check api/sepay-webhook.js && node --check api/send-email.js && node --check api/booking.js && node --check api/webhook/lead.js && node --check api/webhook/provision.js && node --check api/orchestrator/command.js && node --check api/orchestrator/cron.js && node --check api/orchestrator/campaign.js && node -e \"JSON.parse(require('fs').readFileSync('vercel.json','utf8')); JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('Build & Syntax Verification PASSED 100%');\""
   }
 }

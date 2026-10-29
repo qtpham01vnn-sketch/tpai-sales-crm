@@ -1034,10 +1034,34 @@
                     <option value="18:30">⏰ Khung 18:30 Chiều</option>
                   </select>
                 </div>
-                <button type="button" onclick="triggerCommanderCustom()" id="btnTriggerCustom" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tpai-cyan to-blue-500 text-slate-950 font-extrabold text-xs transition flex items-center justify-center space-x-1.5">
+                <!-- Khối Đồng Bộ Chiến Dịch Toàn Kênh (Landing Page + Facebook) -->
+                <div class="space-y-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                  <label class="flex items-start space-x-2 text-xs text-amber-300 font-semibold cursor-pointer">
+                    <input type="checkbox" id="syncLandingPageCheckbox" checked class="w-4 h-4 mt-0.5 rounded text-amber-500 focus:ring-0 shrink-0">
+                    <span>🌐 <b>Đồng bộ Toàn Kênh (Omnichannel):</b> Tự động cập nhật Tiêu đề H1, mô tả & quà tặng trên Landing Page ăn khớp 100% với kịch bản này!</span>
+                  </label>
+                  <p class="text-[11px] text-slate-300 pl-6 leading-relaxed">
+                    Đảm bảo khách hàng bấm từ Facebook vào Landing Page sẽ thấy nội dung trùng khớp hoàn toàn (Message Match), không bị lệch pha thông điệp.
+                  </p>
+                </div>
+
+                <button type="button" onclick="triggerCommanderCustom()" id="btnTriggerCustom" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tpai-cyan to-blue-500 text-slate-950 font-extrabold text-xs transition flex items-center justify-center space-x-1.5 shadow-md hover:brightness-110">
                   <i data-lucide="send" class="w-4 h-4"></i>
-                  <span>Giao Ý Tưởng Này Cho 13 AI Agents Thực Thi</span>
+                  <span>Giao Kịch Bản Này Cho 13 AI Agents & Cập Nhật Hệ Thống</span>
                 </button>
+
+                <!-- Trạng thái Chiến Dịch Landing Page Hiện Tại -->
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs mt-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                    <span class="text-slate-400">Landing Page:</span>
+                    <span id="currentCampaignStatus" class="font-bold text-amber-300">Đang kiểm tra...</span>
+                  </div>
+                  <button type="button" onclick="resetLandingPageHero()" id="btnResetHero" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-[10px] font-semibold transition shrink-0 flex items-center space-x-1">
+                    <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                    <span>Khôi Phục Hero Gốc (9.9M)</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -2647,6 +2671,7 @@
         if (fbTokenEl && orchestratorConfig.fb_page_token) fbTokenEl.value = orchestratorConfig.fb_page_token;
 
         renderOrchestratorQueue();
+        checkActiveCampaignStatus();
       } catch (err) {
         console.error('Load orchestrator error:', err);
       } finally {
@@ -2864,7 +2889,7 @@
       }
     }
 
-    // Kích hoạt Chế độ 2B: Nhập ý tưởng tùy thích của Thầy
+    // Kích hoạt Chế độ 2B: Nhập ý tưởng tùy thích của Thầy (Kèm tùy chọn Đồng Bộ Landing Page Omnichannel)
     async function triggerCommanderCustom() {
       const customText = document.getElementById('customTopicInput').value.trim();
       if (!customText) {
@@ -2873,36 +2898,103 @@
       }
       const mediaType = document.getElementById('customMediaSelect').value || 'image_card';
       const slot = document.getElementById('customSlotSelect').value || '06:30';
+      const shouldSyncLanding = document.getElementById('syncLandingPageCheckbox')?.checked;
       const btn = document.getElementById('btnTriggerCustom');
       const orig = btn.innerHTML;
       btn.disabled = true;
-      btn.innerHTML = `<span>Coach Agent đang viết bài & ghép Media...</span>`;
+      btn.innerHTML = `<span>Coach Agent đang điều phối 13 AI Agents...</span>`;
 
       try {
-        const res = await fetch('/api/orchestrator/command', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'trigger_commander',
-            mode: 'custom',
-            custom_topic: customText,
-            media_type: mediaType,
-            scheduled_slot: slot
-          })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.queue) orchestratorQueue = data.queue;
-          document.getElementById('customTopicInput').value = '';
-          renderOrchestratorQueue();
-          alert(`Coach Agent đã biến ý tưởng của Thầy thành bài đăng hoàn chỉnh hẹn lúc ${slot}!`);
+        if (shouldSyncLanding) {
+          // Giao cho Campaign API xử lý trọn gói: Sinh bài FB + Visual + Cập nhật Landing Page H1/Mô tả/Quà tặng + Bắn Telegram
+          const res = await fetch('/api/orchestrator/campaign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'dispatch_campaign',
+              idea: customText,
+              scheduled_slot: slot
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            document.getElementById('customTopicInput').value = '';
+            await loadOrchestratorData();
+            checkActiveCampaignStatus();
+            alert(`🎉 TUYỆT VỜI! 13 AI Agents đã xử lý xong:\n1. Bài viết & Media đã xếp hàng xuất bản lúc ${slot}.\n2. Landing Page đã tự động cập nhật tiêu đề & mô tả ăn khớp 100% với kịch bản của Thầy!`);
+          } else {
+            const err = await res.json();
+            alert('Lỗi: ' + (err.error || 'Không thể đồng bộ chiến dịch'));
+          }
+        } else {
+          // Chỉ tạo bài đăng trong Hàng đợi
+          const res = await fetch('/api/orchestrator/command', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'trigger_commander',
+              mode: 'custom',
+              custom_topic: customText,
+              media_type: mediaType,
+              scheduled_slot: slot
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.queue) orchestratorQueue = data.queue;
+            document.getElementById('customTopicInput').value = '';
+            renderOrchestratorQueue();
+            alert(`Coach Agent đã biến ý tưởng của Thầy thành bài đăng hoàn chỉnh hẹn lúc ${slot}!`);
+          }
         }
       } catch (err) {
         console.error(err);
+        alert('Lỗi kết nối: ' + err.message);
       } finally {
         btn.disabled = false;
         btn.innerHTML = orig;
         lucide.createIcons();
+      }
+    }
+
+    // Khôi phục Hero Gốc của Landing Page
+    async function resetLandingPageHero() {
+      if (!confirm('Thầy có muốn đưa Landing Page về lại Hero Gốc mặc định (Khóa Cặp Đôi Sếp & Trợ Lý 9.9M) không?')) return;
+      const btn = document.getElementById('btnResetHero');
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch('/api/orchestrator/campaign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'reset' })
+        });
+        if (res.ok) {
+          alert('✓ Đã khôi phục Landing Page về Hero Gốc thành công!');
+          checkActiveCampaignStatus();
+        }
+      } catch (err) {
+        alert('Lỗi: ' + err.message);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    // Kiểm tra trạng thái Chiến Dịch Landing Page hiển thị trên CRM
+    async function checkActiveCampaignStatus() {
+      const el = document.getElementById('currentCampaignStatus');
+      if (!el) return;
+      try {
+        const res = await fetch('/api/orchestrator/campaign', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.campaign && data.campaign.active) {
+            el.innerHTML = `<span class="text-emerald-400 font-bold">🎯 Đang chạy: "${data.campaign.title || data.campaign.badge}"</span>`;
+          } else {
+            el.innerHTML = `<span class="text-slate-400">Hero Gốc (Gói Cặp Đôi 9.9M)</span>`;
+          }
+        }
+      } catch (_) {
+        el.innerHTML = `<span class="text-slate-500">Mặc định</span>`;
       }
     }
 
