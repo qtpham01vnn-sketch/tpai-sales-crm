@@ -74,6 +74,10 @@
       "destination": "/api/orchestrator/cron.js"
     },
     {
+      "source": "/api/orchestrator/campaign",
+      "destination": "/api/orchestrator/campaign.js"
+    },
+    {
       "source": "/api/webhook",
       "destination": "/api/sepay-webhook.js"
     },
