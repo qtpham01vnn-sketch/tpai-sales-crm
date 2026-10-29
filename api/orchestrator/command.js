@@ -627,6 +627,28 @@ export default async function handler(req, res) {
       }
 
       // Action 2.5: Xóa bài khỏi hàng đợi
+            // Action 2.6: Dọn dẹp toàn bộ bài đã xuất bản
+      if (action === 'clear_published') {
+        items = items.filter(i => i.status !== 'published');
+        await saveSupabaseSetting('content_queue', { items });
+        return res.status(200).json({
+          success: true,
+          message: 'Đã dọn dẹp các bài đã xuất bản khỏi hàng đợi!',
+          queue: items
+        });
+      }
+
+      // Action 2.7: Làm mới trọn bộ 6 bài TPAI đa dạng
+      if (action === 'refresh_fresh_batch') {
+        items = buildInitialQueue();
+        await saveSupabaseSetting('content_queue', { items });
+        return res.status(200).json({
+          success: true,
+          message: 'Đã làm mới trọn bộ 6 bài viết TPAI đa dạng chủ đề!',
+          queue: items
+        });
+      }
+
       if (action === 'delete_item') {
         const { item_id } = body;
         items = items.filter(i => i.id !== item_id);

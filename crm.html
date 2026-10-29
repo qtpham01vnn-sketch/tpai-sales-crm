@@ -1115,11 +1115,19 @@
               </h3>
               <p class="text-xs text-slate-400">Thầy xem trực tiếp bài viết, Ảnh Card PNG và bấm Play phát Video Reels 9:16 ngay tại đây trước khi đăng</p>
             </div>
-            <!-- Bộ lọc trạng thái Hàng đợi -->
+            <!-- Bộ lọc trạng thái Hàng đợi & Thao tác nhanh -->
             <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 text-xs">
               <button onclick="filterQueueItems('all')" id="qfilter-all" class="qfilter-btn px-3 py-1.5 rounded-lg bg-tpai-cyan text-slate-950 font-bold shrink-0">Tất Cả</button>
               <button onclick="filterQueueItems('approved')" id="qfilter-approved" class="qfilter-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-medium shrink-0">⏳ Chờ Đăng (06:30 & 18:30)</button>
               <button onclick="filterQueueItems('published')" id="qfilter-published" class="qfilter-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-medium shrink-0">🟢 Đã Xuất Bản</button>
+              <button onclick="clearPublishedItems()" title="Xóa các bài đã đăng khỏi hàng đợi" class="px-2.5 py-1.5 rounded-lg bg-red-950/40 hover:bg-red-900/50 text-red-300 font-semibold border border-red-500/20 shrink-0 flex items-center space-x-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>Dọn Bài Cũ</span>
+              </button>
+              <button onclick="refreshFreshBatch()" title="Làm mới trọn bộ 6 bài TPAI đa dạng chủ đề" class="px-2.5 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-300 font-semibold border border-emerald-500/20 shrink-0 flex items-center space-x-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Nạp 6 Bài Mới</span>
+              </button>
             </div>
           </div>
 
@@ -3014,6 +3022,46 @@
         await saveQueueToSupabaseFallback(orchestratorQueue);
       }
       renderOrchestratorQueue();
+    }
+
+    async function clearPublishedItems() {
+      if (!confirm('Thầy có chắc muốn dọn sạch các bài đã xuất bản khỏi hàng đợi?')) return;
+      try {
+        const res = await fetch('/api/orchestrator/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'clear_published' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          orchestratorQueue = data.queue || [];
+          renderOrchestratorQueue();
+          alert('Đã dọn dẹp các bài cũ thành công!');
+        }
+      } catch (err) {
+        orchestratorQueue = orchestratorQueue.filter(i => i.status !== 'published');
+        await saveQueueToSupabaseFallback(orchestratorQueue);
+        renderOrchestratorQueue();
+      }
+    }
+
+    async function refreshFreshBatch() {
+      if (!confirm('Thầy có muốn nạp trọn bộ 6 bài viết TPAI đa dạng chủ đề mới nhất không?')) return;
+      try {
+        const res = await fetch('/api/orchestrator/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'refresh_fresh_batch' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          orchestratorQueue = data.queue || [];
+          renderOrchestratorQueue();
+          alert('Đã nạp thành công 6 bài viết TPAI mới toanh!');
+        }
+      } catch (err) {
+        alert('Lỗi nạp bài mới: ' + err.message);
+      }
     }
 
     async function saveOrchestratorConfig() {
